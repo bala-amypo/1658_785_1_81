@@ -1,2 +1,4 @@
-package com.example.demo.impl;
-public class Disposal
+package com.example.demo.service.Impl;
+public class DisposalRecordService{
+    
+}
