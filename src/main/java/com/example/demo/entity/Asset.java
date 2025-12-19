@@ -11,5 +11,5 @@ public class Asset{
     private String model;
     private LocalDate purchaseDate;
     private String status;
-    @ManyToOne
+    private LocalDateTime createdAt;
 }
