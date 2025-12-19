@@ -1,16 +1,16 @@
 package com.example.demo.entity;
 
-public class User{
-    
 @Entity
-public class Asset{
+@Table(name="users")
+public class User{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @Column(unique=true,nullable=false)
-    private String assertTag;
-    private String assertType;
-    private String model;
-    private LocalDate purchaseDate;
-    private String status;
+    private String fullName;
+    private String email;
+    private String department;
+    private LocalDate role;
+    private String password;
+    private LocalDateTime createAt;
 }
