@@ -7,7 +7,6 @@ import com.example.demo.repository.AssetRepository;
 import java.util.List;
 @Service
 public class AssetServiceImp implements AssetService{
-    @Autowired AssetRepository asset;
     @Override
 public Asset PostData(Asset asset){
 return student.save(asset);
