@@ -7,6 +7,8 @@ import com.example.demo.repository.AssetRepository;
 import java.util.List;
 @Service
 public class AssetServiceImp implements AssetService{
+private final AssertRepository assetRepo;
+public AssetServiceImpl
     @Override
 public Asset PostData(Asset asset){
 return student.save(asset);
