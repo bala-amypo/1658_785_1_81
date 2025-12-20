@@ -5,6 +5,6 @@ import java.util.List;
 public interface AssetService{
 Asset PostData(Asset asset);
 List<Asset>getval();
-Asset getData(int id);
-StudentEntity updateData(int id,StudentEntity entity);
+Asset getdata(Long id);
+Asset updateStatus(Long id,String status);
 }
