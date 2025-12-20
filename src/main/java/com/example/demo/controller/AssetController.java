@@ -29,11 +29,11 @@ public List<Asset>getval(){
 }
 
 @GetMapping("/getid/{id}")
-public StudentEntity getdata(@PathVariable int id){
-    return ser.getData(id);
+public Asset getdata(@PathVariable Long id){
+    return assetService.getAsset(id);
 }
 @PutMapping("/putid/{id}")
-public StudentEntity putval(@PathVariable int id,@RequestBody StudentEntity entity){
-    return ser.updateData(id,entity);
+public Asset putval(@PathVariable Long id,@RequestBody String status){
+    return assetService.updateStatus(id,status);
 }
 }
