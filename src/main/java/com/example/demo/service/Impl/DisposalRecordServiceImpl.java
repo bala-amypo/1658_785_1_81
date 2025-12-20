@@ -28,13 +28,14 @@ if(record.getDisposalDate().isAfter(LocalDate.now())){
     throw new ValidatinException("Disposal date cannot be in the future");
     }
 record.setAsset(asset);
-record.setApprovedBy(admin);
-return transferRepo.save(record);
+asset.setStatus("DISPOSED");
+assetRepo.save(asset);
+return disposalRepo.save(record);
 }
 
 @Override
-public List<TransferRecord>getValByAsset(int assetId){
-return transferRepo.findByAssetId((long)assetId);
+public List< DisposalRecord>getAllData(){
+return disposalRepo.findAll();
 }
 
 }
