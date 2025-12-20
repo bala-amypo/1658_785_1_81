@@ -1,14 +1,9 @@
 package com.example.demo.service;
 
-public class LiecycleEventService{
-    
-}
-package com.example.demo.service;
-
-import com.example.demo.entity.User;
+import com.example.demo.entity.LiecycleEvent;
 import java.util.List;
 public interface LiecycleEventService{
-User PostData(User user);
-List<User>getval();
-User getdata(Long id);
+LiecycleEvent PostData(Long assetId,Long userId,LiecycleEvent event);
+List<LiecycleEvent>getval(Long assetId);
+LiecycleEvent getdata(Long id);
 }
