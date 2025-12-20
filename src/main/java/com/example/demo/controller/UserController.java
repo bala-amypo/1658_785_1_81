@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/assests")
+@RequestMapping("/api/users")
 public class UserController{
-    private final AssetService assetService;
-    public AssetController(AssetService assetService){
-    this.assetService=assetService;
-@PostMapping("/post")
-public Asset sendData(@RequestBody Asset asset){
+    private final UserService userService;
+    public UserController(UserService userService){
+    this.userService=userService;
+@PostMapping("/register")
+public User sendData(@RequestBody RegisterRequest){
     return assetService.CreateAsset(asset);
 }
 @GetMapping("/get")
