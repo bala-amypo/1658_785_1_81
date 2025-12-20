@@ -20,9 +20,9 @@ public TransferRecordServiceImpl(TransferRecordRepository,transferRepo,AssetRepo
     @Override
 public TransferRecord PostData(int assetId,TransferRecord record){
     Asset asset=assetRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found")
-user admin=userRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("User not found")
-if(event).getEventType()==null){
-    throw new ValidatinException("Event details is required");
+user admin=userRepo.findById(record.getApprovedBy().getId()).orElseThrow(()->new ResorceNotFoundException("User not found"));
+if(!"ADMIN".equals(admin.getRole())){
+    throw new ValidatinException("Approver must be ADMIN");
 }
 event.setAsset(asset);
 event.setPerformedBy(user);
