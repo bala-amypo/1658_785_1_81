@@ -24,17 +24,14 @@ public LifecycleEven PostData(int assetId,int userId,LifecycleEven event){
 if(event).getEventType()==null){
     throw new ValidatinException("Event details is required");
 }
-user.setPassword(passwordEncoder.encode(user.getPassword()));
-return userRepo.save(user);
-
-@Override
-public List<User>getAllData(){
-return userRepo.findAll();
+event.setAsset(asset);
+event.setPerformedBy(user);
+return eventRepo.save(event);
 }
 
 @Override
-public User getData(int id){
-    return userRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("User not found"));
-
+public List<LifecycleEvent>getValByAsset(int assetId){
+return eventRepo.findByAssetId((long)assetId);
 }
+
 }
