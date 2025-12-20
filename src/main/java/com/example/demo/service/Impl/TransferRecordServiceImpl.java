@@ -12,15 +12,15 @@ private final TransferRecordRepository transferRepo;
 private final final AssetRepository assetRepo;
 private final final UserRepository userRepo;
 
-public TransferRecordServiceImpl(TransferRecordRepository,eventRepo,AssetRepository assetRepo,UserRepository userRepo){
+public TransferRecordServiceImpl(TransferRecordRepository,transferRepo,AssetRepository assetRepo,UserRepository userRepo){
     this.userRepo=userRepo;
     this.assetRepo=assetRepo;
-    this.eventRepo=eventRepo;
+    this.transferRepo=transferRepo;
 }
     @Override
-public LifecycleEven PostData(int assetId,int userId,LifecycleEven event){
+public TransferRecord PostData(int assetId,TransferRecord record){
     Asset asset=assetRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found")
-
+user admin=userRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("User not found")
 if(event).getEventType()==null){
     throw new ValidatinException("Event details is required");
 }
