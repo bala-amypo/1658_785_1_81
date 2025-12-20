@@ -26,7 +26,7 @@ public Asset getData(int id){
     return student.findById(id).orElse(null);
 }
 @Override
-public StudentEntity updateData(int id,StudentEntity entity){
+public Asset updateData(int id,Asset entity){
     if(student.existsById(id)){
         entity.setId(id);
         return student.save(entity);
