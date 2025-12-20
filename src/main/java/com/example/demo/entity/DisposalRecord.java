@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.OneToOne;
+
 
 
 
@@ -26,11 +28,11 @@ public class DisposalRecord{
     private LocalDate disposalDate;
     private User approvedBy;  
     private String notes;
-    private LocalDateTime createA
+    private LocalDateTime createdAt;
 
 @PrePersist
 public void onCreate(){
-    if(this.evenDate==null)
-    this.eventDate=LocalDateTime.now();
+    if(this.createdAt==null)
+    this.createdAt=LocalDateTime.now();
 }
 }
