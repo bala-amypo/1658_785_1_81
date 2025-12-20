@@ -8,23 +8,21 @@ import java.util.List;
 @Service
 public class AssetServiceImp implements AssetService{
 private final AssertRepository assetRepo;
-public AssetServiceImpl
+public AssetServiceImpl(AssetRepository assetRepo){
+    this.assetRepo=assetRepo;
+}
     @Override
 public Asset PostData(Asset asset){
-return student.save(asset);
+return assetRepo.save(asset);
 }
 @Override
 public List<Asset>getAllData(){
-return student.findAll();
+return assetRepo.findAll();
 }
-@Override
-public String DeleteData(int id){
-    student.deleteById(id);
-    return "Deleted Successfully";
-}
+
 @Override
 public Asset getData(int id){
-    return student.findById(id).orElse(null);
+    return assetRepo((long)id).findById(id).orElse(null);
 }
 @Override
 public Asset updateData(int id,Asset entity){
