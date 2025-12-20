@@ -27,7 +27,7 @@ if(user.getPassword().length()<8){
 }
 user.setPassword(passwordEncoder.encode(user.getPassword()));
 return userRepo.save(user);
-}
+
 @Override
 public List<User>getAllData(){
 return userRepo.findAll();
@@ -38,5 +38,4 @@ public User getData(int id){
     return userRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("User not found"));
 
 }
-
 }
