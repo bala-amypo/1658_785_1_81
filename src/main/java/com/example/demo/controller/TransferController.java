@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/events")
+@RequestMapping("/api/transfers")
 public class TransferController{
-    private final TransferRecordService eventService;
-    public TransferRecordController(TransferRecordService eventService){
-    this.eventService=eventService;
+    private final TransferRecordService transferService;
+    public TransferController(TransferRecordService transferService){
+    this.transferService=transferService;
     }
-@PostMapping("/post/{assetId}/{userId}")
-public LifecycleEvent sendData(@PathVariable Long userId,@RequestBody LifecycleEvent event){
-    return eventService.logEvent(assetId,userId,event);
+@PostMapping("/post/{assetId}")
+public TransferRecord sendData(@PathVariable Long assetId,@RequestBody TransferRecord record){
+    return transferService.createTransfer(assetId,record);
 
 }
 @GetMapping("/get/asset/{assetId}")
-public List<LifecycleEvent>getval(@PathVariable Long assetId){
+public List<TransferRecordt>getval(@PathVariable Long assetId){
     return eventService.getEventsForAsset(assetId);
 }
 
