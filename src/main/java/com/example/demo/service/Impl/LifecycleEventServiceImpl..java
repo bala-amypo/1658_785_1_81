@@ -12,13 +12,13 @@ private final LifecycleEventRepository eventRepo;
 private final final AssetRepository assetRepo;
 private final final UserRepository userRepo;
 
-public LifecycleEvenServiceImpl(LifecycleEvenRepository,eventRepo,AssetRepository assetRepo,UserRepository userRepo){
+public LifecycleEventServiceImpl(LifecycleEventRepository,eventRepo,AssetRepository assetRepo,UserRepository userRepo){
     this.userRepo=userRepo;
     this.assetRepo=assetRepo;
     this.eventRepo=eventRepo;
 }
     @Override
-public LifecycleEven PostData(int assetId,int userId,LifecycleEven event){
+public LifecycleEvent PostData(int assetId,int userId,LifecycleEvent event){
     Asset asset=assetRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found")
 
 if(event).getEventType()==null){
