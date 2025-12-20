@@ -10,11 +10,11 @@ import java.util.List;
 public class LifecycleEventServiceImp implements LifecycleEventService{
 private final LifecycleEventRepository eventRepo;
 private final final AssetRepository assetRepo;
-private final final AssetRepository assetRepo;
+private final final UserRepository userRepo;
 
-public UserServiceImpl(UserRepository,userRepo,PasswordEncoder passwordEncoder){
+public LifecycleEvenServiceImpl(LifecycleEvenRepository,eventRepo,AssetRepository assetRepo,UserRepository userRepo){
     this.userRepo=userRepo;
-    this.passwordEncoder=passwordEncoder;
+    this.;
 }
     @Override
 public User PostData(User user){
