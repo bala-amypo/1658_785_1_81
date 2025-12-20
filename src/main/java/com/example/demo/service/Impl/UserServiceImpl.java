@@ -22,7 +22,12 @@ throw new ValidationException("Email already in use");
 }
 if(user.getPassword().length()<8){
     throw new ValidationException("Password must be at least 8 characters");
-}if(user.getDepartment()==)
+}if(user.getDepartment()==null){
+    throw new ValidatinException("Department is required");
+}
+user.setPassword(passwordEncoder.encode(user.getPassword()));
+return userRepo.save(user);
+}
 @Override
 public List<User>getAllData(){
 return userRepo.findAll();
