@@ -3,13 +3,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.service.UserService;
 import com.example.demo.entity.User;
+import com.example.demo.exception.ResourceNotException;
+
 import com.example.demo.repository.UserRepository;
 import java.util.List;
 @Service
 public class UserServiceImpl implements UserService{
-private final UserRepository assetRepo;
-public AssetServiceImpl(AssetRepository assetRepo){
-    this.assetRepo=assetRepo;
+private final UserRepository userRepo;
+private final PasswordEncoder passwordEncoder;
+public UserServiceImpl(UserRepository,userRepo,PasswordEncoder passwordEncoder){
+    this.userRepo=userRepo;
+    this.passwordEncoder=passwordEncoder
 }
     @Override
 public Asset PostData(Asset asset){
