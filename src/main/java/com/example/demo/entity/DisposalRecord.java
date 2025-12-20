@@ -11,8 +11,6 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.OneToOne;
 
 
-
-
 @Entity
 @Data
 @AllArgsConstructor
