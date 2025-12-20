@@ -18,17 +18,14 @@ public DisposalRecordServiceImpl(DisposalRecordRepository disposalRepo,AssetRepo
     this.disposalRepo=disposalRepo;
 }
     @Override
-public TransferRecord PostData(int assetId,TransferRecord record){
+public  DisposalRecord PostData(int assetId, DisposalRecord record){
     Asset asset=assetRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found")
 user admin=userRepo.findById(record.getApprovedBy().getId()).orElseThrow(()->new ResorceNotFoundException("User not found"));
 if(!"ADMIN".equals(admin.getRole())){
     throw new ValidatinException("Approver must be ADMIN");
 }
-if(record.getFromDepartment().equals(record.getToDepartment())){
-    throw new ValidatinException("Departments must differ");
-    }
-    if(record.getTransferDate().isAfter(LocalDate.now())){
-    throw new ValidationException("Transfer date cannot be in the future");
+if(record.getDisposalDate().isAfter(LocalDate.now())){
+    throw new ValidatinException("Disposal date cannot be in the future");
     }
 record.setAsset(asset);
 record.setApprovedBy(admin);
