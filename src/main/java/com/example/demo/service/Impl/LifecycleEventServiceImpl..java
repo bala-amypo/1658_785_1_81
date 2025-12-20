@@ -14,10 +14,11 @@ private final final UserRepository userRepo;
 
 public LifecycleEvenServiceImpl(LifecycleEvenRepository,eventRepo,AssetRepository assetRepo,UserRepository userRepo){
     this.userRepo=userRepo;
-    this.;
+    this.assetRepo=assetRepo;
+    this.eventRepo=eventRepo;
 }
     @Override
-public User PostData(User user){
+public LifecycleEven PostData(int assetId,int userId,LifecycleEven event){
 if(userRepo.existsByEmail(user.getEmail()))
 throw new ValidationException("Email already in use");
 }
