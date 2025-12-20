@@ -13,20 +13,20 @@ private final UserRepository userRepo;
 private final PasswordEncoder passwordEncoder;
 public UserServiceImpl(UserRepository,userRepo,PasswordEncoder passwordEncoder){
     this.userRepo=userRepo;
-    this.passwordEncoder=passwordEncoder
+    this.passwordEncoder=passwordEncoder;
 }
     @Override
-public Asset PostData(Asset asset){
-return assetRepo.save(asset);
+public User PostData(User user){
+if(userRepo.existsByEmail(user.getEmail()))
 }
 @Override
-public List<Asset>getAllData(){
-return assetRepo.findAll();
+public List<User>getAllData(){
+return userRepo.findAll();
 }
 
 @Override
-public Asset getData(int id){
-    return assetRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found"));
+public User getData(int id){
+    return userRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found"));
 
 }
 @Override
