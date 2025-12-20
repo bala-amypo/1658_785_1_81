@@ -19,13 +19,9 @@ public class LifecycleEventController{
     private final LifecycleEventService eventService;
     public LifecycleEventController(LifecycleEventService eventService){
     this.eventService=eventService;
-@PostMapping("/post/")
-public Asset sendData(@RequestBody Asset asset){
-    return assetService.CreateAsset(asset);
-}
-@GetMapping("/get")
-public List<Asset>getval(){
-    return assetService.getAllAsset();
+@PostMapping("/post/{assetId}/{userId}")
+public LifecycleEvent sendData(@PathVariable Long userId,@RequestBody LifecycleEvent event){
+    return eventService.logEvent(assetId,userId,event);
 }
 
 @GetMapping("/getid/{id}")
