@@ -1,6 +1,19 @@
 package  com.example.demo.entity;
+import java.util.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
+
+
+
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="assests")
 public class Asset{
     @Id
@@ -19,5 +32,7 @@ public class Asset{
 public void onCreate(){
     if(this.status==null)
     this.status="Available";
+    if(this.createAt==null)
+    this.createAt=LocalDateTime.now();
 }
 }
