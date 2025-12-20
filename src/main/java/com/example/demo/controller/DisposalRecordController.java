@@ -15,14 +15,12 @@ import java.util.List;
 @RequestMapping("/api/disposals")
 public class DisposalRecordController{
     private final DisposalRecordService disposalService;
-    public UserController(UserService userService){
-    this.userService=userService;
+    public UserController(DisposalRecordService disposalService){
+    this.disposalService=disposalService;
     }
-@PostMapping("/register")
-public User sendData(@RequestBody RegisterRequest request ){
-    User user=new User();
-  user.setFullName(request.getFullName());
-  user.setPassword(request.getPassword());
+@PostMapping("/post/{assetId}")
+public DisposalRecord sendData(@PathVariable Long assetId,@RequestBody DisposalRecord disposal ){
+    return disposalService.createDisposal(assetId)
 }
 @GetMapping("/get")
 public List<User>getval(){
