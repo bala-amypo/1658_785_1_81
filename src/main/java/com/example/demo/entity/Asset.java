@@ -7,6 +7,9 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Column;
+import jakarta.persistence.PrePersist;
 
 
 
