@@ -18,20 +18,16 @@ import java.util.List;
 public class AssetController{
     private final AssetService assetService;
     public AssetController(AssetService assetService){
-    this.
-@Autowired StudentService ser;
+    this.assetService=assetService;
 @PostMapping("/post")
-public StudentEntity sendData(@RequestBody StudentEntity stu){
-    return ser.PostData(stu);
+public Asset sendData(@RequestBody Asset asset){
+    return assetService.CreateAsset(asset);
 }
 @GetMapping("/get")
-public List<StudentEntity>getval(){
-    return ser.getAllData();
+public List<Asset>getval(){
+    return assetService.getAllAsset();
 }
-@DeleteMapping("/delete/{id}")
-public String deleteval(@PathVariable int id){
-    return ser.DeleteData(id);
-}
+
 @GetMapping("/getid/{id}")
 public StudentEntity getdata(@PathVariable int id){
     return ser.getData(id);
