@@ -19,13 +19,10 @@ public LifecycleEvenServiceImpl(LifecycleEvenRepository,eventRepo,AssetRepositor
 }
     @Override
 public LifecycleEven PostData(int assetId,int userId,LifecycleEven event){
-if(userRepo.existsByEmail(user.getEmail()))
-throw new ValidationException("Email already in use");
-}
-if(user.getPassword().length()<8){
-    throw new ValidationException("Password must be at least 8 characters");
-}if(user.getDepartment()==null){
-    throw new ValidatinException("Department is required");
+    Asset asset=assetRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found")
+
+if(event).getEventType()==null){
+    throw new ValidatinException("Event details is required");
 }
 user.setPassword(passwordEncoder.encode(user.getPassword()));
 return userRepo.save(user);
