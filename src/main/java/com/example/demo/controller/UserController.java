@@ -18,6 +18,7 @@ public class UserController{
     private final UserService userService;
     public UserController(UserService userService){
     this.userService=userService;
+    }
 @PostMapping("/register")
 public User sendData(@RequestBody RegisterRequest request ){
     User user=new User();
@@ -30,11 +31,7 @@ public List<User>getval(){
 }
 
 @GetMapping("/getid/{id}")
-public Asset getdata(@PathVariable Long id){
-    return assetService.getAsset(id);
-}
-@PutMapping("/putid/{id}")
-public Asset putval(@PathVariable Long id,@RequestBody String status){
-    return assetService.updateStatus(id,status);
+public User getdata(@PathVariable Long id){
+    return UserService.getUser(id);
 }
 }
