@@ -19,7 +19,7 @@ public class UserController{
     public UserController(UserService userService){
     this.userService=userService;
 @PostMapping("/register")
-public User sendData(@RequestBody RegisterRequest){
+public User sendData(@RequestBody RegisterRequest request){
     return assetService.CreateAsset(asset);
 }
 @GetMapping("/get")
