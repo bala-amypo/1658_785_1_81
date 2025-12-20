@@ -20,11 +20,13 @@ public class UserController{
     this.userService=userService;
 @PostMapping("/register")
 public User sendData(@RequestBody RegisterRequest request ){
-    return UserService.CreateAsset(asset);
+    User user=new User();
+  user.setFullName(request.getFullName());
+  user.setPassword(request.getPassword());
 }
 @GetMapping("/get")
-public List<Asset>getval(){
-    return assetService.getAllAsset();
+public List<User>getval(){
+    return UserService.getAllUsers();
 }
 
 @GetMapping("/getid/{id}")
