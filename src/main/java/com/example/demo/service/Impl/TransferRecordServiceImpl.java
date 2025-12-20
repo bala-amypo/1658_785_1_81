@@ -24,6 +24,10 @@ user admin=userRepo.findById(record.getApprovedBy().getId()).orElseThrow(()->new
 if(!"ADMIN".equals(admin.getRole())){
     throw new ValidatinException("Approver must be ADMIN");
 }
+if(record.getFromDepartment().equals(record.getToDepartment())){
+    throw new ValidatinException("Departments must differ");
+    }
+    if(record.getTransferDate().isAfter(LocalDate.now())){
 event.setAsset(asset);
 event.setPerformedBy(user);
 return eventRepo.save(event);
