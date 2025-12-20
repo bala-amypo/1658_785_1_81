@@ -22,14 +22,13 @@ return assetRepo.findAll();
 
 @Override
 public Asset getData(int id){
-    return assetRepo((long)id).findById(id).orElse(null);
+    return assetRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found"));
+
 }
 @Override
-public Asset updateData(int id,Asset entity){
-    if(student.existsById(id)){
-        entity.setId(id);
-        return student.save(entity);
-}
-    return null;
+public Asset updateStatus(int id,String status){
+   Asset asset=getData(id);
+   asset.setStatus(status);
+   return assetRepo.save(asset);
 }
 }
