@@ -19,17 +19,15 @@ public class LifecycleEventController{
     private final LifecycleEventService eventService;
     public LifecycleEventController(LifecycleEventService eventService){
     this.eventService=eventService;
+    }
 @PostMapping("/post/{assetId}/{userId}")
 public LifecycleEvent sendData(@PathVariable Long userId,@RequestBody LifecycleEvent event){
     return eventService.logEvent(assetId,userId,event);
+
+}
+@GetMapping("/get/asset/{assetId}")
+public List<LifecycleEvent>getval(@PathVariable Long assetId){
+    return eventService.getEventsForAsset(assetId);
 }
 
-@GetMapping("/getid/{id}")
-public Asset getdata(@PathVariable Long id){
-    return assetService.getAsset(id);
-}
-@PutMapping("/putid/{id}")
-public Asset putval(@PathVariable Long id,@RequestBody String status){
-    return assetService.updateStatus(id,status);
-}
 }
