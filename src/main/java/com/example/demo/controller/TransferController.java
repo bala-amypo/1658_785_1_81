@@ -25,7 +25,7 @@ public TransferRecord sendData(@PathVariable Long assetId,@RequestBody TransferR
 }
 @GetMapping("/get/asset/{assetId}")
 public List<TransferRecordt>getval(@PathVariable Long assetId){
-    return eventService.getEventsForAsset(assetId);
+    return transferService.getTransfersForAsset(assetId);
 }
 
 }
