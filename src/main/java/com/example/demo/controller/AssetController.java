@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 @RestController
-
+@RequestMapping("/api/assests
 public class AssetController{
 @Autowired StudentService ser;
 @PostMapping("/post")
