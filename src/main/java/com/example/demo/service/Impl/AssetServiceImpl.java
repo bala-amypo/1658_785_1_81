@@ -7,13 +7,13 @@ import com.example.demo.repository.AssetRepository;
 import java.util.List;
 @Service
 public class AssetServiceImp implements AssetService{
-    @Autowired AssetRepository stude;
+    @Autowired AssetRepository asset;
     @Override
-public StudentEntity PostData(StudentEntity stu){
-return student.save(stu);
+public Asset PostData(Asset asset){
+return student.save(asset);
 }
 @Override
-public List<StudentEntity>getAllData(){
+public List<Asset>getAllData(){
 return student.findAll();
 }
 @Override
@@ -22,7 +22,7 @@ public String DeleteData(int id){
     return "Deleted Successfully";
 }
 @Override
-public StudentEntity getData(int id){
+public Asset getData(int id){
     return student.findById(id).orElse(null);
 }
 @Override
