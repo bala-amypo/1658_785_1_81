@@ -1,6 +1,7 @@
 package  com.example.demo.entity;
 
 @Entity
+@Table(name="assests")
 public class Asset{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -11,5 +12,12 @@ public class Asset{
     private String model;
     private LocalDate purchaseDate;
     private String status;
+        @JoinColumn(name="user_id")
+
     private LocalDateTime createdAt;
+@PrePersist
+public void onCreate(){
+    if(this.status==null)
+    this.status="Available";
+}
 }
