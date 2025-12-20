@@ -20,15 +20,15 @@ public class DisposalRecordController{
     }
 @PostMapping("/post/{assetId}")
 public DisposalRecord sendData(@PathVariable Long assetId,@RequestBody DisposalRecord disposal ){
-    return disposalService.createDisposal(assetId)
+    return disposalService.createDisposal(assetId,disposal);
 }
 @GetMapping("/get")
-public List<User>getval(){
-    return UserService.getAllUsers();
+public List<DisposalRecord>getval(){
+    return DisposalRecordService.getAllDisposals();
 }
 
 @GetMapping("/getid/{id}")
-public User getdata(@PathVariable Long id){
-    return UserService.getUser(id);
+public DisposalRecord getdata(@PathVariable Long id){
+    return disposalService.getdisposal(id);
 }
 }
