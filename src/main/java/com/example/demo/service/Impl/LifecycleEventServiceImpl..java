@@ -9,10 +9,10 @@ import java.util.List;
 @Service
 public class LifecycleEventServiceImp implements LifecycleEventService{
 private final LifecycleEventRepository eventRepo;
-private final final AssetRepository assetRepo;
-private final final UserRepository userRepo;
+private final AssetRepository assetRepo;
+private final UserRepository userRepo;
 
-public LifecycleEventServiceImpl(LifecycleEventRepository,eventRepo,AssetRepository assetRepo,UserRepository userRepo){
+public LifecycleEventServiceImpl(LifecycleEventRepository eventRepo,AssetRepository assetRepo,UserRepository userRepo){
     this.userRepo=userRepo;
     this.assetRepo=assetRepo;
     this.eventRepo=eventRepo;

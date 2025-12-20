@@ -1,21 +1,21 @@
 package com.example.demo.service.Impl;
 import org.springframework.stereotype.Service;
-import com.example.demo.service.TransferRecordService;
+import com.example.demo.service.DisposalRecordService;
 import com.example.demo.entity.DisposalRecord;
 import com.example.demo.exception.ResourceNotException;
 
-import com.example.demo.repository.TransferRecordRepository;
+import com.example.demo.repository.DisposalRecordRepository;
 import java.util.List;
 @Service
-public class DisposalRecordServiceImp implements TransferRecordService{
-private final TransferRecordRepository transferRepo;
-private final final AssetRepository assetRepo;
-private final final UserRepository userRepo;
+public class DisposalRecordServiceImp implements DisposalRecordService{
+private final DisposalRecordRepository disposalRepo;
+private final AssetRepository assetRepo;
+private final UserRepository userRepo;
 
-public TransferRecordServiceImpl(TransferRecordRepository,transferRepo,AssetRepository assetRepo,UserRepository userRepo){
+public DisposalRecordServiceImpl(DisposalRecordRepository disposalRepo,AssetRepository assetRepo,UserRepository userRepo){
     this.userRepo=userRepo;
     this.assetRepo=assetRepo;
-    this.transferRepo=transferRepo;
+    this.disposalRepo=disposalRepo;
 }
     @Override
 public TransferRecord PostData(int assetId,TransferRecord record){
