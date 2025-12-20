@@ -18,7 +18,11 @@ public UserServiceImpl(UserRepository,userRepo,PasswordEncoder passwordEncoder){
     @Override
 public User PostData(User user){
 if(userRepo.existsByEmail(user.getEmail()))
+throw new ValidationException("Email already in use");
 }
+if(user.getPassword().length()<8){
+    throw new ValidationException("Password must be at least 8 characters");
+}if(user.getDepartment()==)
 @Override
 public List<User>getAllData(){
 return userRepo.findAll();
@@ -26,13 +30,8 @@ return userRepo.findAll();
 
 @Override
 public User getData(int id){
-    return userRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found"));
+    return userRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("User not found"));
 
 }
-@Override
-public Asset updateStatus(int id,String status){
-   Asset asset=getData(id);
-   asset.setStatus(status);
-   return assetRepo.save(asset);
-}
+
 }
