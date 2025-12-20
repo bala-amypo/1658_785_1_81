@@ -28,14 +28,16 @@ if(record.getFromDepartment().equals(record.getToDepartment())){
     throw new ValidatinException("Departments must differ");
     }
     if(record.getTransferDate().isAfter(LocalDate.now())){
-event.setAsset(asset);
-event.setPerformedBy(user);
-return eventRepo.save(event);
+    throw new ValidationException("Transfer date cannot be in the future");
+    }
+record.setAsset(asset);
+record.setApprovedBy(admin);
+return transferRepo.save(record);
 }
 
 @Override
-public List<LifecycleEvent>getValByAsset(int assetId){
-return eventRepo.findByAssetId((long)assetId);
+public List<TransferRecord>getValByAsset(int assetId){
+return transferRepo.findByAssetId((long)assetId);
 }
 
 }
