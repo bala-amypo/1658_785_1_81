@@ -7,4 +7,5 @@ public interface UserService {
     User registerUser(User user);
     List<User> getAllUsers();
     User getUserByEmail(String email);
+    User getUser(Long id); // Add this line
 }
