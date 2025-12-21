@@ -1,21 +1,20 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Asset;
-import com.example.demo.service.Impl.AssetServiceImpl;
+import com.example.demo.service.AssetService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/assets")
+@RequestMapping("/assets")
 public class AssetController {
 
-   
-    @GetMapping
-    public List<Asset> getAllAssets() {
-        return assetService.getAllAssets();
+    private final AssetService assetService;
+
+    // Constructor injection (no @Autowired needed)
+    public AssetController(AssetService assetService) {
+        this.assetService = assetService;
     }
 
     @PostMapping
@@ -23,13 +22,23 @@ public class AssetController {
         return assetService.createAsset(asset);
     }
 
+    @GetMapping
+    public List<Asset> getAllAssets() {
+        return assetService.getAllAssets();
+    }
+
+    @GetMapping("/{id}")
+    public Asset getAsset(@PathVariable Long id) {
+        return assetService.getAssetById(id);
+    }
+
     @PutMapping("/{id}")
     public Asset updateAsset(@PathVariable Long id, @RequestBody Asset asset) {
         return assetService.updateAsset(id, asset);
     }
 
-    @GetMapping("/search")
-    public Asset getAssetByCode(@RequestParam String assetCode) {
-        return assetService.getAssetByCode(assetCode);
+    @DeleteMapping("/{id}")
+    public void deleteAsset(@PathVariable Long id) {
+        assetService.deleteAsset(id);
     }
 }
