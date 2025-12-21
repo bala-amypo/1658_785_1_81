@@ -9,21 +9,34 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 
-
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name="transfer_records")
-public class TransferRecord{
+@Table(name = "transfer_records")
+public class TransferRecord {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
     private Asset asset;
+
     private String fromDepartment;
     private String toDepartment;
     private LocalDate transferDate;
-    private User approveBy;  
 
+    @ManyToOne
+    private User approvedBy;
 
+    public TransferRecord() {}
+
+    public TransferRecord(Long id, Asset asset,
+                          String fromDepartment, String toDepartment,
+                          LocalDate transferDate, User approvedBy) {
+        this.id = id;
+        this.asset = asset;
+        this.fromDepartment = fromDepartment;
+        this.toDepartment = toDepartment;
+        this.transferDate = transferDate;
+        this.approvedBy = approvedBy;
+    }
 }

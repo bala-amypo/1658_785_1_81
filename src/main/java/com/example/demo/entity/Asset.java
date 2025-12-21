@@ -12,31 +12,43 @@ import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Enumerated;
 
-
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name="assests")
-public class Asset{
+@Table(name = "assets", uniqueConstraints = @UniqueConstraint(columnNames = "assetTag"))
+public class Asset {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    @Column(unique=true,nullable=false)
-    private String assertTag;
-    private String assertType;
+
+    private String assetTag;
+    private String assetType;
     private String model;
     private LocalDate purchaseDate;
     private String status;
-        @JoinColumn(name="user_id")
+
+    @ManyToOne
+    private User currentHolder;
 
     private LocalDateTime createdAt;
-@PrePersist
-public void onCreate(){
-    if(this.status==null)
-    this.status="Available";
-    if(this.createAt==null)
-    this.createAt=LocalDateTime.now();
-}
+
+    public Asset() {}
+
+    public Asset(Long id, String assetTag, String assetType, String model,
+                 LocalDate purchaseDate, String status,
+                 User currentHolder, LocalDateTime createdAt) {
+        this.id = id;
+        this.assetTag = assetTag;
+        this.assetType = assetType;
+        this.model = model;
+        this.purchaseDate = purchaseDate;
+        this.status = status;
+        this.currentHolder = currentHolder;
+        this.createdAt = createdAt;
+    }
+
+    @PrePersist
+    void prePersist() {
+        if (status == null) status = "AVAILABLE";
+        if (createdAt == null) createdAt = LocalDateTime.now();
+    }
 }

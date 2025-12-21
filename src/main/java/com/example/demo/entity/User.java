@@ -11,32 +11,38 @@ import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Enumerated;
 
-
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name="users")
-public class User{
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-        @Enumerated(EnumType.STRING)
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class User {
 
-    @Column(unique=true,nullable=false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String fullName;
     private String email;
     private String department;
-    private LocalDate role;
+    private String role;
     private String password;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
+    public User() {}
 
-@PrePersist
-public void onCreate(){
-    if(this.role==null)
-    this.rolr="USER";
-    if(this.createAt==null)
-    this.createAt=LocalDateTime.now();
-}
+    public User(Long id, String fullName, String email,
+                String department, String role,
+                String password, LocalDateTime createdAt) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.department = department;
+        this.role = role;
+        this.password = password;
+        this.createdAt = createdAt;
+    }
+
+    @PrePersist
+    void prePersist() {
+        if (role == null) role = "USER";
+        if (createdAt == null) createdAt = LocalDateTime.now();
+    }
 }
