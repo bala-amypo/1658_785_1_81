@@ -11,21 +11,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/transfers")
-public class TransferController{
+public class TransferRecordController {
+
     private final TransferRecordService transferService;
-    public TransferController(TransferRecordService transferService){
-    this.transferService=transferService;
+
+    public TransferRecordController(TransferRecordService transferService) {
+        this.transferService = transferService;
     }
-@PostMapping("/post/{assetId}")
-public TransferRecord sendData(@PathVariable Long assetId,@RequestBody TransferRecord record){
-    return transferService.createTransfer(assetId,record);
 
-}
-@GetMapping("/get/asset/{assetId}")
-public List<TransferRecordt>getval(@PathVariable Long assetId){
-    return transferService.getTransfersForAsset(assetId);
-}
+    @PostMapping("/{assetId}")
+    public TransferRecord createTransfer(@PathVariable Long assetId,
+                                         @RequestBody TransferRecord record) {
+        return transferService.createTransfer(assetId, record);
+    }
 
+    @GetMapping("/asset/{assetId}")
+    public List<TransferRecord> getTransfersForAsset(@PathVariable Long assetId) {
+        return transferService.getTransfersForAsset(assetId);
+    }
+
+    @GetMapping("/{id}")
+    public TransferRecord getTransfer(@PathVariable Long id) {
+        return transferService.getTransfer(id);
+    }
 }

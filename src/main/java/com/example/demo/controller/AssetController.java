@@ -13,27 +13,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 @RestController
-@RequestMapping("/assest")
-public class AssetController{
-    private final AssetService assetService;
-    public AssetController(AssetService assetService){
-    this.assetService=assetService;
-    }
-@PostMapping("/post")
-public Asset sendData(@RequestBody Asset asset){
-    return assetService.CreateAsset(asset);
-}
-@GetMapping("/get")
-public List<Asset>getval(){
-    return assetService.getAllAsset();
-}
+@RequestMapping("/api/assets")
+public class AssetController {
 
-@GetMapping("/getid/{id}")
-public Asset getdata(@PathVariable Long id){
-    return assetService.getAsset(id);
-}
-@PutMapping("/putid/{id}")
-public Asset putval(@PathVariable Long id,@RequestBody String status){
-    return assetService.updateStatus(id,status);
-}
+    private final AssetService assetService;
+
+    public AssetController(AssetService assetService) {
+        this.assetService = assetService;
+    }
+
+    @PostMapping
+    public Asset createAsset(@RequestBody Asset asset) {
+        return assetService.createAsset(asset);
+    }
+
+    @GetMapping
+    public List<Asset> getAllAssets() {
+        return assetService.getAllAssets();
+    }
+
+    @GetMapping("/{id}")
+    public Asset getAsset(@PathVariable Long id) {
+        return assetService.getAsset(id);
+    }
+
+    @PutMapping("/status/{id}")
+    public Asset updateStatus(@PathVariable Long id,
+                              @RequestParam String status) {
+        return assetService.updateStatus(id, status);
+    }
 }

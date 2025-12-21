@@ -13,24 +13,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 @RestController
 @RequestMapping("/api/users")
-public class UserController{
-    private final UserService userService;
-    public UserController(UserService userService){
-    this.userService=userService;
-    }
-@PostMapping("/register")
-public User sendData(@RequestBody RegisterRequest request ){
-    User user=new User();
-  user.setFullName(request.getFullName());
-  user.setPassword(request.getPassword());
-}
-@GetMapping("/get")
-public List<User>getval(){
-    return UserService.getAllUsers();
-}
+public class UserController {
 
-@GetMapping("/getid/{id}")
-public User getdata(@PathVariable Long id){
-    return UserService.getUser(id);
-}
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userService.getUser(id);
+    }
 }
