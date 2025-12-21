@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Asset;
-import com.example.demo.service.impl.AssetServiceImpl;
+import com.example.demo.service.Impl.AssetServiceImpl;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
