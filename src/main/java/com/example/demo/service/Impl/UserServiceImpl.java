@@ -16,13 +16,13 @@ public UserServiceImpl(UserRepository,userRepo,PasswordEncoder passwordEncoder){
 }
     @Override
 public User PostData(User user){
-if(userRepo.existsByEmail(user.getEmail()))
-throw new ValidationException("Email already in use");
+if(userRepo.existsByEmail(user.getEmail())){
+throw new RuntimeException("Email already in use");
 }
 if(user.getPassword().length()<8){
-    throw new ValidationException("Password must be at least 8 characters");
+    throw new   RuntimeException("Password must be at least 8 characters");
 }if(user.getDepartment()==null){
-    throw new ValidatinException("Department is required");
+    throw new RuntimeException("Department is required");
 }
 user.setPassword(passwordEncoder.encode(user.getPassword()));
 return userRepo.save(user);
@@ -34,7 +34,7 @@ return userRepo.findAll();
 
 @Override
 public User getData(int id){
-    return userRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("User not found"));
+    return userRepo.findById(id).orElseThrow(()->new RuntimeException("User not found"));
 
 }
 }
