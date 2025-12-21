@@ -1,43 +1,46 @@
-package com.example.demo.service.Impl;
+package com.example.demo.service.impl;
 
-import com.example.demo.entity.Asset;
 import com.example.demo.entity.DisposalRecord;
-import com.example.demo.entity.User;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.DisposalRecordRepository;
-import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.DisposalRecordService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DisposalRecordServiceImpl {
+public class DisposalRecordServiceImpl implements DisposalRecordService {
 
-    @Autowired
-    private DisposalRecordRepository disposalRecordRepository;
+    private final DisposalRecordRepository repository;
 
-    @Autowired
-    private AssetRepository assetRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<DisposalRecord> getAllDisposals() {
-        return disposalRecordRepository.findAll();
+    public DisposalRecordServiceImpl(DisposalRecordRepository repository) {
+        this.repository = repository;
     }
 
-    public DisposalRecord createDisposal(DisposalRecord record) {
-        Asset asset = assetRepository.findById(record.getAsset().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
+    @Override
+    public DisposalRecord createDisposal(DisposalRecord disposal) {
+        return repository.save(disposal);
+    }
 
-        User approver = userRepository.findById(record.getApprovedBy().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    @Override
+    public List<DisposalRecord> getAllDisposals() {
+        return repository.findAll();
+    }
 
-        record.setAsset(asset);
-        record.setApprovedBy(approver);
+    @Override
+    public DisposalRecord getDisposalById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
 
-        return disposalRecordRepository.save(record);
+    @Override
+    public DisposalRecord updateDisposal(Long id, DisposalRecord disposal) {
+        DisposalRecord existing = repository.findById(id).orElseThrow();
+        existing.setName(disposal.getName()); // example field
+        existing.setDate(disposal.getDate());
+        return repository.save(existing);
+    }
+
+    @Override
+    public void deleteDisposal(Long id) {
+        repository.deleteById(id);
     }
 }
