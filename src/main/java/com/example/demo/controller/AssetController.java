@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 @RestController
-@RequestMapping("/api/assests")
+@RequestMapping("/assest")
 public class AssetController{
     private final AssetService assetService;
     public AssetController(AssetService assetService){
     this.assetService=assetService;
+    }
 @PostMapping("/post")
 public Asset sendData(@RequestBody Asset asset){
     return assetService.CreateAsset(asset);
