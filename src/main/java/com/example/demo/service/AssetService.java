@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Asset;
+
 import java.util.List;
 
 public interface AssetService {
@@ -11,5 +12,5 @@ public interface AssetService {
 
     List<Asset> getAllAssets();
 
-    Asset updateStatus(Long id, String status);
+    Asset updateStatus(Long assetId, String status);
 }

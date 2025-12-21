@@ -9,26 +9,22 @@ import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.TransferRecordRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.TransferRecordService;
-import com.example.demo.exception.ValidationException;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 @Service
 public class TransferRecordServiceImpl implements TransferRecordService {
-
 
     private final TransferRecordRepository transferRecordRepository;
     private final AssetRepository assetRepository;
     private final UserRepository userRepository;
 
-    // ✅ Constructor order EXACT as requirement
-    public TransferRecordServiceImpl(
-            TransferRecordRepository transferRecordRepository,
-            AssetRepository assetRepository,
-            UserRepository userRepository) {
-
+    // ⚠️ Constructor order MUST match helper doc
+    public TransferRecordServiceImpl(TransferRecordRepository transferRecordRepository,
+                                     AssetRepository assetRepository,
+                                     UserRepository userRepository) {
         this.transferRecordRepository = transferRecordRepository;
         this.assetRepository = assetRepository;
         this.userRepository = userRepository;
@@ -48,7 +44,7 @@ public class TransferRecordServiceImpl implements TransferRecordService {
         }
 
         if (record.getFromDepartment().equals(record.getToDepartment())) {
-            throw new ValidationException("Departments must differ");
+            throw new ValidationException("From and To departments must differ");
         }
 
         if (record.getTransferDate().isAfter(LocalDate.now())) {
@@ -62,13 +58,13 @@ public class TransferRecordServiceImpl implements TransferRecordService {
     }
 
     @Override
-    public TransferRecord getTransfer(Long id) {
-        return transferRecordRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Transfer record not found"));
+    public List<TransferRecord> getTransfersForAsset(Long assetId) {
+        return transferRecordRepository.findByAssetId(assetId);
     }
 
     @Override
-    public List<TransferRecord> getTransfersForAsset(Long assetId) {
-        return transferRecordRepository.findByAssetId(assetId);
+    public TransferRecord getTransfer(Long id) {
+        return transferRecordRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Transfer record not found"));
     }
 }

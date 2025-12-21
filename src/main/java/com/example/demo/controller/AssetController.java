@@ -12,28 +12,28 @@ public class AssetController {
 
     private final AssetService assetService;
 
-    // ✅ Constructor injection (NO @Autowired)
     public AssetController(AssetService assetService) {
         this.assetService = assetService;
     }
 
     @PostMapping
-    public Asset create(@RequestBody Asset asset) {
+    public Asset createAsset(@RequestBody Asset asset) {
         return assetService.createAsset(asset);
     }
 
     @GetMapping
-    public List<Asset> getAll() {
+    public List<Asset> getAllAssets() {
         return assetService.getAllAssets();
     }
 
     @GetMapping("/{id}")
-    public Asset getById(@PathVariable Long id) {
+    public Asset getAsset(@PathVariable Long id) {
         return assetService.getAsset(id);
     }
 
     @PutMapping("/status/{id}")
-    public Asset updateStatus(@PathVariable Long id, @RequestParam String status) {
+    public Asset updateStatus(@PathVariable Long id,
+                              @RequestParam String status) {
         return assetService.updateStatus(id, status);
     }
 }
