@@ -11,7 +11,6 @@ public class TransferRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ✅ Correct way (ONLY ONE mapping)
     @ManyToOne
     @JoinColumn(name = "asset_id", nullable = false)
     private Asset asset;
@@ -21,7 +20,12 @@ public class TransferRecord {
 
     private LocalDate transferDate;
 
-    // getters & setters
+    // ✅ ADD THIS
+    @ManyToOne
+    @JoinColumn(name = "approved_by")
+    private User approvedBy;
+
+    // -------- GETTERS & SETTERS --------
 
     public Long getId() {
         return id;
@@ -57,5 +61,14 @@ public class TransferRecord {
 
     public void setTransferDate(LocalDate transferDate) {
         this.transferDate = transferDate;
+    }
+
+    // ✅ REQUIRED METHODS (FIX YOUR ERROR)
+    public User getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(User approvedBy) {
+        this.approvedBy = approvedBy;
     }
 }
