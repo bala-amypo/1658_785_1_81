@@ -11,24 +11,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/disposals")
-public class DisposalRecordController{
-    private final DisposalRecordService disposalService;
-    public DisposalRecordController(DisposalRecordService disposalService){
-    this.disposalService=disposalService;
-    }
-@PostMapping("/post/{assetId}")
-public DisposalRecord sendData(@PathVariable Long assetId,@RequestBody DisposalRecord disposal ){
-    return disposalService.createDisposal(assetId,disposal);
-}
-@GetMapping("/get")
-public List<DisposalRecord>getval(){
-    return DisposalRecordService.getAllDisposals();
-}
+public class DisposalRecordController {
 
-@GetMapping("/getid/{id}")
-public DisposalRecord getdata(@PathVariable Long id){
-    return disposalService.getdisposal(id);
-}
+    private final DisposalRecordService disposalService;
+
+    public DisposalRecordController(DisposalRecordService disposalService) {
+        this.disposalService = disposalService;
+    }
+
+    @PostMapping("/{assetId}")
+    public DisposalRecord createDisposal(@PathVariable Long assetId,
+                                         @RequestBody DisposalRecord record) {
+        return disposalService.createDisposal(assetId, record);
+    }
+
+    @GetMapping
+    public List<DisposalRecord> getAllDisposals() {
+        return disposalService.getAllDisposals();
+    }
+
+    @GetMapping("/{id}")
+    public DisposalRecord getDisposal(@PathVariable Long id) {
+        return disposalService.getDisposal(id);
+    }
 }
