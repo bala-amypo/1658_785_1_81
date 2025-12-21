@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/disposals")
 public class DisposalRecordController{
     private final DisposalRecordService disposalService;
-    public UsController(DisposalRecordService disposalService){
+    public DisposalRecordController(DisposalRecordService disposalService){
     this.disposalService=disposalService;
     }
 @PostMapping("/post/{assetId}")
