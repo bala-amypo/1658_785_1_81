@@ -1,25 +1,28 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.LifecycleEvent;
-import com.example.demo.service.Impl.LifecycleEventServiceImpl;
+import com.example.demo.service.LifecycleEventService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/lifecycle-events")
+@RequestMapping("/lifecycle")
 public class LifecycleEventController {
 
-  
-    @GetMapping
-    public List<LifecycleEvent> getAllEvents() {
-        return lifecycleService.getAllEvents();
+    private final LifecycleEventService lifecycleService;
+
+    public LifecycleEventController(LifecycleEventService lifecycleService) {
+        this.lifecycleService = lifecycleService;
     }
 
     @PostMapping
-    public LifecycleEvent createEvent(@RequestBody LifecycleEvent event) {
-        return lifecycleService.createEvent(event);
+    public LifecycleEvent save(@RequestBody LifecycleEvent event) {
+        return lifecycleService.save(event);
+    }
+
+    @GetMapping
+    public List<LifecycleEvent> getAll() {
+        return lifecycleService.getAll();
     }
 }

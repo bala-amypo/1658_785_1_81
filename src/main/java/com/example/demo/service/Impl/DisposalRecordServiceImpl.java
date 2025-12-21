@@ -31,13 +31,11 @@ public class DisposalRecordServiceImpl implements DisposalRecordService {
         return repository.findById(id).orElse(null);
     }
 
-    @Override
-    public DisposalRecord updateDisposal(Long id, DisposalRecord disposal) {
-        DisposalRecord existing = repository.findById(id).orElseThrow();
-        existing.setName(disposal.getName()); // example field
-        existing.setDate(disposal.getDate());
-        return repository.save(existing);
-    }
+   
+@Override
+public DisposalRecord updateDisposal(Long id, DisposalRecord disposal) {
+    return repository.save(disposal);
+}
 
     @Override
     public void deleteDisposal(Long id) {
