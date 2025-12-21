@@ -19,7 +19,7 @@ public DisposalRecordServiceImpl(DisposalRecordRepository disposalRepo,AssetRepo
 }
     @Override
 public  DisposalRecord PostData(int assetId, DisposalRecord record){
-    Asset asset=assetRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found")
+    Asset asset=assetRepo.findById((long)id).orElseThrow(()->new ResorceNotFoundException("Asset not found"))
 user admin=userRepo.findById(record.getApprovedBy().getId()).orElseThrow(()->new ResorceNotFoundException("User not found"));
 if(!"ADMIN".equals(admin.getRole())){
     throw new ValidatinException("Approver must be ADMIN");
