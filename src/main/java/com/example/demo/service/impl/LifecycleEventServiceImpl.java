@@ -1,27 +1,27 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.LifecycleEvent;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.*;
+import com.example.demo.repository.LifecycleEventRepository;
 import com.example.demo.service.LifecycleEventService;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class LifecycleEventServiceImpl implements LifecycleEventService {
     private final LifecycleEventRepository lifecycleEventRepository;
-    private final AssetRepository assetRepository;
-    private final UserRepository userRepository;
 
-    public LifecycleEventServiceImpl(LifecycleEventRepository ler, AssetRepository ar, UserRepository ur) { // [cite: 23]
-        this.lifecycleEventRepository = ler;
-        this.assetRepository = ar;
-        this.userRepository = ur;
+    public LifecycleEventServiceImpl(LifecycleEventRepository lifecycleEventRepository) {
+        this.lifecycleEventRepository = lifecycleEventRepository;
+    }
+
+    @Override
+    public List<LifecycleEvent> getEventsForAsset(Long assetId) {
+        return lifecycleEventRepository.findByAssetId(assetId);
     }
 
     @Override
     public LifecycleEvent logEvent(Long assetId, Long userId, LifecycleEvent event) {
-        event.setAsset(assetRepository.findById(assetId).orElseThrow(() -> new ResourceNotFoundException("Asset not found"))); // [cite: 96, 221]
-        event.setPerformedBy(userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"))); // [cite: 96, 221]
+        // ... your existing log logic ...
         return lifecycleEventRepository.save(event);
     }
 }
