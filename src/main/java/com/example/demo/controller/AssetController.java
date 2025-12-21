@@ -36,3 +36,4 @@ public Asset putval(@PathVariable Long id,@RequestBody String status){
     return assetService.updateStatus(id,status);
 }
 }
+}
