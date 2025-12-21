@@ -15,33 +15,44 @@ import com.example.demo.service.LifecycleEventService;
 @Service
 public class LifecycleEventServiceImpl implements LifecycleEventService {
 
-    private final LifecycleEventRepository eventRepo;
-    private final AssetRepository assetRepo;
-    private final UserRepository userRepo;
+    private final LifecycleEventRepository eventRepository;
+    private final AssetRepository assetRepository;
+    private final UserRepository userRepository;
 
-    public LifecycleEventServiceImpl(LifecycleEventRepository eventRepo,
-                                     AssetRepository assetRepo,
-                                     UserRepository userRepo) {
-        this.eventRepo = eventRepo;
-        this.assetRepo = assetRepo;
-        this.userRepo = userRepo;
+    public LifecycleEventServiceImpl(
+            LifecycleEventRepository eventRepository,
+            AssetRepository assetRepository,
+            UserRepository userRepository) {
+        this.eventRepository = eventRepository;
+        this.assetRepository = assetRepository;
+        this.userRepository = userRepository;
     }
 
-    @Override
-    public LifecycleEvent postData(int assetId, int userId, LifecycleEvent event) {
+    public LifecycleEvent logEvent(Long assetId, Long userId, LifecycleEvent event) {
 
-        Asset asset = assetRepo.findById((long) assetId)
+        if (event.getEventType() == null)
+            throw new ValidationException("Event type is required");
+
+        if (event.getEventDescription() == null || event.getEventDescription().isEmpty())
+            throw new ValidationException("Event description is required");
+
+        Asset asset = assetRepository.findById(assetId)
                 .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
 
-        event.setAsset(asset);
-        event.setPerformedBy(userRepo.findById((long) userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found")));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        return eventRepo.save(event);
+        event.setAsset(asset);
+        event.setPerformedBy(user);
+        return eventRepository.save(event);
     }
 
-    @Override
-    public List<LifecycleEvent> getAllByAsset(int assetId) {
-        return eventRepo.findByAssetId((long) assetId);
+    public List<LifecycleEvent> getEventsForAsset(Long assetId) {
+        return eventRepository.findByAssetId(assetId);
+    }
+
+    public LifecycleEvent getEvent(Long id) {
+        return eventRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Lifecycle event not found"));
     }
 }

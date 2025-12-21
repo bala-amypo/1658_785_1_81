@@ -12,31 +12,28 @@ import com.example.demo.service.AssetService;
 @Service
 public class AssetServiceImpl implements AssetService {
 
-    private final AssetRepository assetRepo;
+    private final AssetRepository assetRepository;
 
-    public AssetServiceImpl(AssetRepository assetRepo) {
-  this.assetRepo = assetRepo;
+    public AssetServiceImpl(AssetRepository assetRepository) {
+        this.assetRepository = assetRepository;
     }
 
-    @Override
-    public Asset postData(Asset asset) {
-        return assetRepo.save(asset);
+    public Asset createAsset(Asset asset) {
+        return assetRepository.save(asset);
     }
 
-    @Override
-    public List<Asset> getAllData() {
-        return assetRepo.findAll();
+    public Asset getAsset(Long id) {
+        return assetRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
     }
 
-    @Override
-    public Asset getData(int id) {
-        return assetRepo.findById((long) id).orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
+    public List<Asset> getAllAssets() {
+        return assetRepository.findAll();
     }
 
-    @Override
-    public Asset updateStatus(int id, String status) {
-        Asset asset = getData(id);
+    public Asset updateStatus(Long id, String status) {
+        Asset asset = getAsset(id);
         asset.setStatus(status);
-        return assetRepo.save(asset);
+        return assetRepository.save(asset);
     }
 }

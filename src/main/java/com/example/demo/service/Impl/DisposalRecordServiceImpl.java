@@ -14,32 +14,50 @@ import com.example.demo.service.DisposalRecordService;
 @Service
 public class DisposalRecordServiceImpl implements DisposalRecordService {
 
-    private final DisposalRecordRepository disposalRepo;
-    private final AssetRepository assetRepo;
+    private final DisposalRecordRepository disposalRepository;
+    private final AssetRepository assetRepository;
+    private final UserRepository userRepository;
 
-    public DisposalRecordServiceImpl(DisposalRecordRepository disposalRepo,
-        AssetRepository assetRepo) {
-        this.disposalRepo = disposalRepo;
-        this.assetRepo = assetRepo;
+    public DisposalRecordServiceImpl(
+            DisposalRecordRepository disposalRepository,
+            AssetRepository assetRepository,
+            UserRepository userRepository) {
+        this.disposalRepository = disposalRepository;
+        this.assetRepository = assetRepository;
+        this.userRepository = userRepository;
     }
 
-    @Override
-    public DisposalRecord postData(int assetId, DisposalRecord record) {
+    public DisposalRecord createDisposal(Long assetId, DisposalRecord record) {
 
-        if (record.getDisposalDate().isAfter(LocalDate.now())) {
-            throw new RuntimeException("Disposal date cannot be in the future");
-        }
+        Asset asset = assetRepository.findById(assetId)
+                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
 
-        record.setAsset(
-                assetRepo.findById((long) assetId)
-                        .orElseThrow(() -> new ResourceNotFoundException("Asset not found"))
-        );
+        User approver = userRepository.findById(record.getApprovedBy().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        return disposalRepo.save(record);
+        if (!"ADMIN".equals(approver.getRole()))
+            throw new ValidationException("Approver must be ADMIN");
+
+        if (record.getDisposalDate().isAfter(LocalDate.now()))
+            throw new ValidationException("Disposal date cannot be in the future");
+
+        record.setAsset(asset);
+        record.setApprovedBy(approver);
+
+        DisposalRecord saved = disposalRepository.save(record);
+
+        asset.setStatus("DISPOSED");
+        assetRepository.save(asset);
+
+        return saved;
     }
 
-    @Override
-    public List<DisposalRecord> getAllByAsset(int assetId) {
-        return disposalRepo.findByAssetId((long) assetId);
+    public DisposalRecord getDisposal(Long id) {
+        return disposalRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Disposal record not found"));
+    }
+
+    public List<DisposalRecord> getAllDisposals() {
+        return disposalRepository.findAll();
     }
 }
