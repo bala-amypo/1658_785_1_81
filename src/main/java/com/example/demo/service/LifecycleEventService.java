@@ -4,7 +4,8 @@ import com.example.demo.entity.LifecycleEvent;
 import java.util.List;
 
 public interface LifecycleEventService {
-    List<LifecycleEvent> getAllEvents();
-    LifecycleEvent getEventById(Long id);
-    LifecycleEvent createEvent(LifecycleEvent event);
+
+    LifecycleEvent save(LifecycleEvent event);
+
+    List<LifecycleEvent> getAll();
 }
