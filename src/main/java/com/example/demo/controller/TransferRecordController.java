@@ -1,41 +1,19 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.TransferRecord;
-import com.example.demo.entity.User;
 import com.example.demo.service.TransferRecordService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/transfers")
+@RequestMapping("/api/transfers") // [cite: 316]
+@Tag(name = "Transfers")
 public class TransferRecordController {
+    private final TransferRecordService service;
+    public TransferRecordController(TransferRecordService service) { this.service = service; }
 
-    private final TransferRecordService transferRecordService;
-
-    public TransferRecordController(TransferRecordService transferRecordService) {
-        this.transferRecordService = transferRecordService;
-    }
-
-    @PostMapping("/{assetId}")
-    public TransferRecord createTransfer(@PathVariable Long assetId,
-                                         @RequestParam Long approvedByUserId,
-                                         @RequestBody TransferRecord record) {
-
-        User approver = new User();
-        approver.setId(approvedByUserId);
-        record.setApprovedBy(approver);
-
-        return transferRecordService.createTransfer(assetId, record);
-    }
-
-    @GetMapping("/asset/{assetId}")
-    public List<TransferRecord> getTransfersByAsset(@PathVariable Long assetId) {
-        return transferRecordService.getTransfersForAsset(assetId);
-    }
-
-    @GetMapping("/{id}")
-    public TransferRecord getTransfer(@PathVariable Long id) {
-        return transferRecordService.getTransfer(id);
+    @PostMapping("/{assetId}") // [cite: 319]
+    public TransferRecord create(@PathVariable Long assetId, @RequestBody TransferRecord record) {
+        return service.createTransfer(assetId, record);
     }
 }

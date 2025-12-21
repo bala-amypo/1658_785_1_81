@@ -1,41 +1,23 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.DisposalRecord;
-import com.example.demo.entity.User;
 import com.example.demo.service.DisposalRecordService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/disposals")
+@RequestMapping("/api/disposals") // [cite: 328]
+@Tag(name = "Disposals")
 public class DisposalRecordController {
+    private final DisposalRecordService service;
+    public DisposalRecordController(DisposalRecordService service) { this.service = service; }
 
-    private final DisposalRecordService disposalRecordService;
-
-    public DisposalRecordController(DisposalRecordService disposalRecordService) {
-        this.disposalRecordService = disposalRecordService;
+    @PostMapping("/{assetId}") // [cite: 331]
+    public DisposalRecord create(@PathVariable Long assetId, @RequestBody DisposalRecord disposal) {
+        return service.createDisposal(assetId, disposal);
     }
 
-    @PostMapping("/{assetId}")
-    public DisposalRecord createDisposal(@PathVariable Long assetId,
-                                         @RequestParam Long approvedByUserId,
-                                         @RequestBody DisposalRecord disposal) {
-
-        User approver = new User();
-        approver.setId(approvedByUserId);
-        disposal.setApprovedBy(approver);
-
-        return disposalRecordService.createDisposal(assetId, disposal);
-    }
-
-    @GetMapping
-    public List<DisposalRecord> getAllDisposals() {
-        return disposalRecordService.getAllDisposals();
-    }
-
-    @GetMapping("/{id}")
-    public DisposalRecord getDisposal(@PathVariable Long id) {
-        return disposalRecordService.getDisposal(id);
-    }
+    @GetMapping // [cite: 335]
+    public List<DisposalRecord> getAll() { return service.getAllDisposals(); }
 }

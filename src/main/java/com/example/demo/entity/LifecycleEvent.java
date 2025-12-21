@@ -1,37 +1,23 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "lifecycle_events")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class LifecycleEvent {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    private Asset asset;
-
-    private String eventType;
+    @ManyToOne @JoinColumn(name = "asset_id")
+    private Asset asset; // [cite: 80]
+    private String eventType; // [cite: 81]
     private String eventDescription;
     private LocalDateTime eventDate;
-
-    @ManyToOne
-    private User performedBy;
+    @ManyToOne @JoinColumn(name = "user_id")
+    private User performedBy; // [cite: 84]
 
     @PrePersist
-    public void prePersist() {
-        if (eventDate == null) eventDate = LocalDateTime.now();
-    }
+    protected void onCreate() { if (eventDate == null) eventDate = LocalDateTime.now(); } // [cite: 94]
 }
