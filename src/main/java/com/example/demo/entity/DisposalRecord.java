@@ -1,11 +1,12 @@
 package com.example.demo.entity;
-
+import lombok.Data;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
 @Table(name = "disposal_records")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class DisposalRecord {
