@@ -1,10 +1,10 @@
 package com.example.demo.repository;
+
+import com.example.demo.entity.Asset;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.springframework.stereotype.Repository;
-import com.example.demo.entity.Asset;
-import java.util.List;
-@Repository
+import java.util.Optional;
+
 public interface AssetRepository extends JpaRepository<Asset, Long> {
-    List<Asset> findByStatus(String status);
+    Optional<Asset> findByAssetCode(String assetCode);
 }

@@ -1,14 +1,11 @@
-package  com.example.demo.entity;
-import java.util.Data;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
-import jakarta.persistence.ManyToOne;
+package com.example.demo.entity;
 
+import jakarta.persistence.*;
+import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -24,12 +21,15 @@ public class TransferRecord {
     @ManyToOne
     private Asset asset;
 
-    private String fromDepartment;
-    private String toDepartment;
-    private LocalDate transferDate;
+    @ManyToOne
+    private User transferredBy;
 
     @ManyToOne
-    private User approvedBy;
+    private User transferredTo;
 
-   
+    private LocalDate transferDate;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime updatedAt = LocalDateTime.now();
 }

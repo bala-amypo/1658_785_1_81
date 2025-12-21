@@ -1,14 +1,10 @@
-package  com.example.demo.entity;
-import java.util.Data;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -24,16 +20,16 @@ public class LifecycleEvent {
     @ManyToOne
     private Asset asset;
 
-    private String eventType;
-    private String eventDescription;
-    private LocalDateTime eventDate;
-
     @ManyToOne
-    private User performedBy;
+    private User createdBy;
 
+    private String eventType;
 
-    @PrePersist
-    void prePersist() {
-        if (eventDate == null) eventDate = LocalDateTime.now();
-    }
+    private String eventDescription;
+
+    private LocalDateTime eventDate = LocalDateTime.now();
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime updatedAt = LocalDateTime.now();
 }

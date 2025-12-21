@@ -1,39 +1,36 @@
-package  com.example.demo.entity;
-import java.util.Data;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Column;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Enumerated;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullName;
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;
-    private String department;
+
     private String role;
-    private String password;
-    private LocalDateTime createdAt;
 
-    
+    private LocalDate dateOfJoining;
 
-    @PrePersist
-    void prePersist() {
-        if (role == null) role = "USER";
-        if (createdAt == null) createdAt = LocalDateTime.now();
-    }
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime updatedAt = LocalDateTime.now();
 }

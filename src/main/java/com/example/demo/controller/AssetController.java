@@ -1,25 +1,22 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.AssetController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.demo.service.AssetService;
 import com.example.demo.entity.Asset;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-
+import com.example.demo.service.impl.AssetServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/assets")
 public class AssetController {
 
-    private final AssetService assetService;
+    @Autowired
+    private AssetServiceImpl assetService;
 
-    public AssetController(AssetService assetService) {
-        this.assetService = assetService;
+    @GetMapping
+    public List<Asset> getAllAssets() {
+        return assetService.getAllAssets();
     }
 
     @PostMapping
@@ -27,19 +24,13 @@ public class AssetController {
         return assetService.createAsset(asset);
     }
 
-    @GetMapping
-    public List<Asset> getAllAssets() {
-        return assetService.getAllAssets();
+    @PutMapping("/{id}")
+    public Asset updateAsset(@PathVariable Long id, @RequestBody Asset asset) {
+        return assetService.updateAsset(id, asset);
     }
 
-    @GetMapping("/{id}")
-    public Asset getAsset(@PathVariable Long id) {
-        return assetService.getAsset(id);
-    }
-
-    @PutMapping("/status/{id}")
-    public Asset updateStatus(@PathVariable Long id,
-                              @RequestParam String status) {
-        return assetService.updateStatus(id, status);
+    @GetMapping("/search")
+    public Asset getAssetByCode(@RequestParam String assetCode) {
+        return assetService.getAssetByCode(assetCode);
     }
 }
