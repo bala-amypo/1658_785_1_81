@@ -5,38 +5,24 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.AssetRepository;
 import com.example.demo.service.AssetService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class AssetServiceImpl implements AssetService {
-
     private final AssetRepository assetRepository;
 
-    public AssetServiceImpl(AssetRepository assetRepository) {
+    public AssetServiceImpl(AssetRepository assetRepository) { // [cite: 21, 193]
         this.assetRepository = assetRepository;
     }
 
     @Override
-    public Asset createAsset(Asset asset) {
-        return assetRepository.save(asset);
-    }
+    public Asset createAsset(Asset asset) { return assetRepository.save(asset); }
 
     @Override
     public Asset getAsset(Long id) {
-        return assetRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
+        return assetRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Asset not found")); // [cite: 195]
     }
 
     @Override
-    public List<Asset> getAllAssets() {
-        return assetRepository.findAll();
-    }
-
-    @Override
-    public Asset updateStatus(Long assetId, String status) {
-        Asset asset = getAsset(assetId);
-        asset.setStatus(status);
-        return assetRepository.save(asset);
-    }
+    public List<Asset> getAllAssets() { return assetRepository.findAll(); }
 }
