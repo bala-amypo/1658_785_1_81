@@ -4,9 +4,12 @@ import com.example.demo.entity.Asset;
 import java.util.List;
 
 public interface AssetService {
-    List<Asset> getAllAssets();
-    Asset getAssetById(Long id);
+
     Asset createAsset(Asset asset);
-    Asset updateAsset(Long id, Asset asset);
-    void deleteAsset(Long id);
+
+    Asset getAsset(Long id);
+
+    List<Asset> getAllAssets();
+
+    Asset updateStatus(Long id, String status);
 }

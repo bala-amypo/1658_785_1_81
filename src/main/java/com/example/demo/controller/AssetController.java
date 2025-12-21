@@ -7,38 +7,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/assets")
+@RequestMapping("/api/assets")
 public class AssetController {
 
     private final AssetService assetService;
 
-    // Constructor injection (no @Autowired needed)
+    // ✅ Constructor injection (NO @Autowired)
     public AssetController(AssetService assetService) {
         this.assetService = assetService;
     }
 
     @PostMapping
-    public Asset createAsset(@RequestBody Asset asset) {
+    public Asset create(@RequestBody Asset asset) {
         return assetService.createAsset(asset);
     }
 
     @GetMapping
-    public List<Asset> getAllAssets() {
+    public List<Asset> getAll() {
         return assetService.getAllAssets();
     }
 
     @GetMapping("/{id}")
-    public Asset getAsset(@PathVariable Long id) {
-        return assetService.getAssetById(id);
+    public Asset getById(@PathVariable Long id) {
+        return assetService.getAsset(id);
     }
 
-    @PutMapping("/{id}")
-    public Asset updateAsset(@PathVariable Long id, @RequestBody Asset asset) {
-        return assetService.updateAsset(id, asset);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteAsset(@PathVariable Long id) {
-        assetService.deleteAsset(id);
+    @PutMapping("/status/{id}")
+    public Asset updateStatus(@PathVariable Long id, @RequestParam String status) {
+        return assetService.updateStatus(id, status);
     }
 }
