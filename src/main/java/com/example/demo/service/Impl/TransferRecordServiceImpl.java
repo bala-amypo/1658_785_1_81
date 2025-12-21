@@ -14,14 +14,13 @@ import com.example.demo.service.TransferRecordService;
 
 @Service
 public class TransferRecordServiceImpl implements TransferRecordService {
-
-    private final TransferRecordRepository transferRepo;
+ private final TransferRecordRepository transferRepo;
     private final AssetRepository assetRepo;
     private final UserRepository userRepo;
 
     public TransferRecordServiceImpl(TransferRecordRepository transferRepo,
-                                     AssetRepository assetRepo,
-                                     UserRepository userRepo) {
+        AssetRepository assetRepo,
+        UserRepository userRepo) {
         this.transferRepo = transferRepo;
         this.assetRepo = assetRepo;
         this.userRepo = userRepo;
@@ -34,10 +33,9 @@ public class TransferRecordServiceImpl implements TransferRecordService {
             throw new RuntimeException("Transfer date cannot be in the future");
         }
 
-        record.setAsset(assetRepo.findById((long) assetId)
-                .orElseThrow(() -> new ResourceNotFoundException("Asset not found")));
+        record.setAsset(assetRepo.findById((long) assetId).orElseThrow(() -> new ResourceNotFoundException("Asset not found")));
 
-        return transferRepo.save(record);
+ return transferRepo.save(record);
     }
 
     @Override

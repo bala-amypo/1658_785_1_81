@@ -15,7 +15,7 @@ public class AssetServiceImpl implements AssetService {
     private final AssetRepository assetRepo;
 
     public AssetServiceImpl(AssetRepository assetRepo) {
-        this.assetRepo = assetRepo;
+  this.assetRepo = assetRepo;
     }
 
     @Override
@@ -30,8 +30,7 @@ public class AssetServiceImpl implements AssetService {
 
     @Override
     public Asset getData(int id) {
-        return assetRepo.findById((long) id)
-                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
+        return assetRepo.findById((long) id).orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
     }
 
     @Override
