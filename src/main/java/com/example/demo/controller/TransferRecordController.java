@@ -1,48 +1,50 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.TransferController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.demo.service.TransferRecordService;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.entity.TransferRecord;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.example.demo.service.TransferRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/transfers")
+@RequestMapping("/transfers") // Base URL for Transfer APIs
 public class TransferRecordController {
 
     private final TransferRecordService transferService;
 
+    @Autowired
     public TransferRecordController(TransferRecordService transferService) {
         this.transferService = transferService;
     }
 
-    @PostMapping("/{assetId}")
-    public TransferRecord createTransfer(@PathVariable Long assetId,
-                                         @RequestBody TransferRecord record) {
-        return transferService.createTransfer(assetId, record);
+    // Create a new transfer record
+    @PostMapping
+    public TransferRecord createTransfer(@RequestBody TransferRecord transfer) {
+        return transferService.createTransfer(transfer);
     }
 
-    @GetMapping("/asset/{assetId}")
-    public List<TransferRecord> getTransfersForAsset(@PathVariable Long assetId) {
-        return transferService.getTransfersForAsset(assetId);
+    // Get all transfer records
+    @GetMapping
+    public List<TransferRecord> getAllTransfers() {
+        return transferService.getAllTransfers();
     }
 
+    // Get a transfer record by ID
     @GetMapping("/{id}")
     public TransferRecord getTransfer(@PathVariable Long id) {
         return transferService.getTransfer(id);
+    }
+
+    // Update transfer record
+    @PutMapping("/{id}")
+    public TransferRecord updateTransfer(@PathVariable Long id, @RequestBody TransferRecord transfer) {
+        return transferService.updateTransfer(id, transfer);
+    }
+
+    // Delete transfer record
+    @DeleteMapping("/{id}")
+    public void deleteTransfer(@PathVariable Long id) {
+        transferService.deleteTransfer(id);
     }
 }
