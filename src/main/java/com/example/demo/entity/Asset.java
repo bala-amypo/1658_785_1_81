@@ -12,7 +12,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
 
 
-
 @Entity
 @Data
 @AllArgsConstructor
