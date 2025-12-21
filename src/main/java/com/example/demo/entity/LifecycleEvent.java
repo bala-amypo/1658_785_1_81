@@ -7,9 +7,12 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "lifecycle_events")
 public class LifecycleEvent {
@@ -28,18 +31,6 @@ public class LifecycleEvent {
     @ManyToOne
     private User performedBy;
 
-    public LifecycleEvent() {}
-
-    public LifecycleEvent(Long id, Asset asset, String eventType,
-                          String eventDescription,
-                          LocalDateTime eventDate, User performedBy) {
-        this.id = id;
-        this.asset = asset;
-        this.eventType = eventType;
-        this.eventDescription = eventDescription;
-        this.eventDate = eventDate;
-        this.performedBy = performedBy;
-    }
 
     @PrePersist
     void prePersist() {

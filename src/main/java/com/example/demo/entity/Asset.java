@@ -9,9 +9,13 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Enumerated;
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "assets", uniqueConstraints = @UniqueConstraint(columnNames = "assetTag"))
 public class Asset {
@@ -31,20 +35,7 @@ public class Asset {
 
     private LocalDateTime createdAt;
 
-    public Asset() {}
-
-    public Asset(Long id, String assetTag, String assetType, String model,
-                 LocalDate purchaseDate, String status,
-                 User currentHolder, LocalDateTime createdAt) {
-        this.id = id;
-        this.assetTag = assetTag;
-        this.assetType = assetType;
-        this.model = model;
-        this.purchaseDate = purchaseDate;
-        this.status = status;
-        this.currentHolder = currentHolder;
-        this.createdAt = createdAt;
-    }
+    
 
     @PrePersist
     void prePersist() {
