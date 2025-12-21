@@ -10,27 +10,43 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.OneToOne;
 
-
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name="disposal_records")
-public class DisposalRecord{
+@Table(name = "disposal_records")
+public class DisposalRecord {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
     private Asset asset;
+
     private String disposalMethod;
     private LocalDate disposalDate;
-    private User approvedBy;  
+
+    @ManyToOne
+    private User approvedBy;
+
     private String notes;
     private LocalDateTime createdAt;
 
-@PrePersist
-public void onCreate(){
-    if(this.createdAt==null)
-    this.createdAt=LocalDateTime.now();
-}
+    public DisposalRecord() {}
+
+    public DisposalRecord(Long id, Asset asset,
+                          String disposalMethod, LocalDate disposalDate,
+                          User approvedBy, String notes,
+                          LocalDateTime createdAt) {
+        this.id = id;
+        this.asset = asset;
+        this.disposalMethod = disposalMethod;
+        this.disposalDate = disposalDate;
+        this.approvedBy = approvedBy;
+        this.notes = notes;
+        this.createdAt = createdAt;
+    }
+
+    @PrePersist
+    void prePersist() {
+        if (createdAt == null) createdAt = LocalDateTime.now();
+    }
 }

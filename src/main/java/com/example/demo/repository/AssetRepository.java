@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Asset;
 import java.util.List;
 @Repository
-public interface AssetRepository extends JpaRepository<Asset,Long>{
-List<Asset> findByStatus(String status);
-    
+public interface AssetRepository extends JpaRepository<Asset, Long> {
+    List<Asset> findByStatus(String status);
 }
