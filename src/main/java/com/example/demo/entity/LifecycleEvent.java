@@ -1,16 +1,19 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "lifecycle_events")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LifecycleEvent {
 
     @Id
@@ -20,16 +23,15 @@ public class LifecycleEvent {
     @ManyToOne
     private Asset asset;
 
-    @ManyToOne
-    private User createdBy;
-
     private String eventType;
-
     private String eventDescription;
+    private LocalDateTime eventDate;
 
-    private LocalDateTime eventDate = LocalDateTime.now();
+    @ManyToOne
+    private User performedBy;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @PrePersist
+    public void prePersist() {
+        if (eventDate == null) eventDate = LocalDateTime.now();
+    }
 }

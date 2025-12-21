@@ -1,36 +1,44 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "assets", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "assetCode")
-})
+@Table(
+    name = "assets",
+    uniqueConstraints = @UniqueConstraint(columnNames = "assetTag")
+)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Asset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String assetName;
-
-    @Column(nullable = false, unique = true)
-    private String assetCode;
-
+    private String assetTag;
+    private String assetType;
+    private String model;
+    private LocalDate purchaseDate;
     private String status;
 
-    private LocalDate purchaseDate;
+    @ManyToOne
+    @JoinColumn(name = "current_holder_id")
+    private User currentHolder;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @PrePersist
+    public void prePersist() {
+        if (status == null) status = "AVAILABLE";
+        if (createdAt == null) createdAt = LocalDateTime.now();
+    }
 }
