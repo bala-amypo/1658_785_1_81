@@ -7,27 +7,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/transfers")
+@RequestMapping("/api/transfers")
 public class TransferRecordController {
 
-    private final TransferRecordService transferService;
+    private final TransferRecordService transferRecordService;
 
-    public TransferRecordController(TransferRecordService transferService) {
-        this.transferService = transferService;
+    // ✅ Constructor injection
+    public TransferRecordController(TransferRecordService transferRecordService) {
+        this.transferRecordService = transferRecordService;
     }
 
-    @PostMapping
-    public TransferRecord save(@RequestBody TransferRecord transfer) {
-        return transferService.save(transfer);
+    @PostMapping("/{assetId}")
+    public TransferRecord create(
+            @PathVariable Long assetId,
+            @RequestBody TransferRecord record) {
+
+        return transferRecordService.createTransfer(assetId, record);
     }
 
-    @GetMapping
-    public List<TransferRecord> getAll() {
-        return transferService.getAll();
+    @GetMapping("/{id}")
+    public TransferRecord getById(@PathVariable Long id) {
+        return transferRecordService.getTransfer(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        transferService.delete(id);
+    @GetMapping("/asset/{assetId}")
+    public List<TransferRecord> getByAsset(@PathVariable Long assetId) {
+        return transferRecordService.getTransfersForAsset(assetId);
     }
 }
