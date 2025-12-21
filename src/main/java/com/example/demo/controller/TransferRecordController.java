@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.TransferRecord;
+import com.example.demo.entity.User;
 import com.example.demo.service.TransferRecordService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,26 +13,29 @@ public class TransferRecordController {
 
     private final TransferRecordService transferRecordService;
 
-    // ✅ Constructor injection
     public TransferRecordController(TransferRecordService transferRecordService) {
         this.transferRecordService = transferRecordService;
     }
 
     @PostMapping("/{assetId}")
-    public TransferRecord create(
-            @PathVariable Long assetId,
-            @RequestBody TransferRecord record) {
+    public TransferRecord createTransfer(@PathVariable Long assetId,
+                                         @RequestParam Long approvedByUserId,
+                                         @RequestBody TransferRecord record) {
+
+        User approver = new User();
+        approver.setId(approvedByUserId);
+        record.setApprovedBy(approver);
 
         return transferRecordService.createTransfer(assetId, record);
     }
 
-    @GetMapping("/{id}")
-    public TransferRecord getById(@PathVariable Long id) {
-        return transferRecordService.getTransfer(id);
+    @GetMapping("/asset/{assetId}")
+    public List<TransferRecord> getTransfersByAsset(@PathVariable Long assetId) {
+        return transferRecordService.getTransfersForAsset(assetId);
     }
 
-    @GetMapping("/asset/{assetId}")
-    public List<TransferRecord> getByAsset(@PathVariable Long assetId) {
-        return transferRecordService.getTransfersForAsset(assetId);
+    @GetMapping("/{id}")
+    public TransferRecord getTransfer(@PathVariable Long id) {
+        return transferRecordService.getTransfer(id);
     }
 }

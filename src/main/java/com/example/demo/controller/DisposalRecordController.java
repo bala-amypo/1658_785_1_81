@@ -1,43 +1,41 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.DisposalRecord;
+import com.example.demo.entity.User;
 import com.example.demo.service.DisposalRecordService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/disposals")
+@RequestMapping("/api/disposals")
 public class DisposalRecordController {
 
-    private final DisposalRecordService disposalService;
+    private final DisposalRecordService disposalRecordService;
 
-    public DisposalRecordController(DisposalRecordService disposalService) {
-        this.disposalService = disposalService;
+    public DisposalRecordController(DisposalRecordService disposalRecordService) {
+        this.disposalRecordService = disposalRecordService;
     }
 
-    @PostMapping
-    public DisposalRecord createDisposal(@RequestBody DisposalRecord disposal) {
-        return disposalService.createDisposal(disposal);
+    @PostMapping("/{assetId}")
+    public DisposalRecord createDisposal(@PathVariable Long assetId,
+                                         @RequestParam Long approvedByUserId,
+                                         @RequestBody DisposalRecord disposal) {
+
+        User approver = new User();
+        approver.setId(approvedByUserId);
+        disposal.setApprovedBy(approver);
+
+        return disposalRecordService.createDisposal(assetId, disposal);
     }
 
     @GetMapping
     public List<DisposalRecord> getAllDisposals() {
-        return disposalService.getAllDisposals();
+        return disposalRecordService.getAllDisposals();
     }
 
     @GetMapping("/{id}")
     public DisposalRecord getDisposal(@PathVariable Long id) {
-        return disposalService.getDisposalById(id);
-    }
-
-    @PutMapping("/{id}")
-    public DisposalRecord updateDisposal(@PathVariable Long id, @RequestBody DisposalRecord disposal) {
-        return disposalService.updateDisposal(id, disposal);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteDisposal(@PathVariable Long id) {
-        disposalService.deleteDisposal(id);
+        return disposalRecordService.getDisposal(id);
     }
 }
