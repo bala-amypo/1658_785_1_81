@@ -2,8 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Asset;
 import com.example.demo.service.impl.AssetServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -11,9 +12,7 @@ import java.util.List;
 @RequestMapping("/api/assets")
 public class AssetController {
 
-    @Autowired
-    private AssetServiceImpl assetService;
-
+   
     @GetMapping
     public List<Asset> getAllAssets() {
         return assetService.getAllAssets();

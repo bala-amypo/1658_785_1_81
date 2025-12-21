@@ -2,9 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.LifecycleEvent;
 import com.example.demo.service.impl.LifecycleEventServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -12,9 +12,7 @@ import java.util.List;
 @RequestMapping("/api/lifecycle-events")
 public class LifecycleEventController {
 
-    @Autowired
-    private LifecycleEventServiceImpl lifecycleService;
-
+  
     @GetMapping
     public List<LifecycleEvent> getAllEvents() {
         return lifecycleService.getAllEvents();

@@ -4,6 +4,8 @@ import com.example.demo.entity.User;
 import com.example.demo.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -11,8 +13,6 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserServiceImpl userService;
 
     @GetMapping
     public List<User> getAllUsers() {
