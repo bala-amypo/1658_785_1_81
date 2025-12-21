@@ -1,45 +1,36 @@
-package  com.example.demo.entity;
-import java.util.Data;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Enumerated;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "assets", uniqueConstraints = @UniqueConstraint(columnNames = "assetTag"))
+@Table(name = "assets", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "assetCode")
+})
 public class Asset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String assetTag;
-    private String assetType;
-    private String model;
-    private LocalDate purchaseDate;
+    @Column(nullable = false)
+    private String assetName;
+
+    @Column(nullable = false, unique = true)
+    private String assetCode;
+
     private String status;
 
-    @ManyToOne
-    private User currentHolder;
+    private LocalDate purchaseDate;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    
-
-    @PrePersist
-    void prePersist() {
-        if (status == null) status = "AVAILABLE";
-        if (createdAt == null) createdAt = LocalDateTime.now();
-    }
+    private LocalDateTime updatedAt = LocalDateTime.now();
 }
