@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
-
+import jakarta.persistence.Enumerated;
 
 
 @Entity
@@ -21,6 +21,8 @@ public class User{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+        @Enumerated(EnumType.STRING)
+
     @Column(unique=true,nullable=false)
     private String fullName;
     private String email;
