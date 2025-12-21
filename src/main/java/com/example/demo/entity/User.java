@@ -11,6 +11,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Enumerated;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
@@ -26,19 +29,7 @@ public class User {
     private String password;
     private LocalDateTime createdAt;
 
-    public User() {}
-
-    public User(Long id, String fullName, String email,
-                String department, String role,
-                String password, LocalDateTime createdAt) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.department = department;
-        this.role = role;
-        this.password = password;
-        this.createdAt = createdAt;
-    }
+    
 
     @PrePersist
     void prePersist() {

@@ -5,10 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import jakarta.persistence.ManyToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "transfer_records")
 public class TransferRecord {
@@ -27,16 +31,5 @@ public class TransferRecord {
     @ManyToOne
     private User approvedBy;
 
-    public TransferRecord() {}
-
-    public TransferRecord(Long id, Asset asset,
-                          String fromDepartment, String toDepartment,
-                          LocalDate transferDate, User approvedBy) {
-        this.id = id;
-        this.asset = asset;
-        this.fromDepartment = fromDepartment;
-        this.toDepartment = toDepartment;
-        this.transferDate = transferDate;
-        this.approvedBy = approvedBy;
-    }
+   
 }
