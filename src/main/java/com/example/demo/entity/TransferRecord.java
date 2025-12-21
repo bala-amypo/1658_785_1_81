@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,8 +14,13 @@ public class TransferRecord {
     private String fromDepartment;
     private String toDepartment;
 
+    private LocalDate transferDate;
+
     @ManyToOne
     private User approvedBy;
+
+    @ManyToOne
+    private Asset asset;
 
     private Long assetId;
 
@@ -43,12 +50,28 @@ public class TransferRecord {
         this.toDepartment = toDepartment;
     }
 
+    public LocalDate getTransferDate() {
+        return transferDate;
+    }
+
+    public void setTransferDate(LocalDate transferDate) {
+        this.transferDate = transferDate;
+    }
+
     public User getApprovedBy() {
         return approvedBy;
     }
 
     public void setApprovedBy(User approvedBy) {
         this.approvedBy = approvedBy;
+    }
+
+    public Asset getAsset() {
+        return asset;
+    }
+
+    public void setAsset(Asset asset) {
+        this.asset = asset;
     }
 
     public Long getAssetId() {
