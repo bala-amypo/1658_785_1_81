@@ -9,14 +9,15 @@ import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.TransferRecordRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.TransferRecordService;
-import org.springframework.stereotype.Service;
 import com.example.demo.exception.ValidationException;
 
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
-@Service   // ⭐ REQUIRED
+@Service
 public class TransferRecordServiceImpl implements TransferRecordService {
+
 
     private final TransferRecordRepository transferRecordRepository;
     private final AssetRepository assetRepository;
