@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.service.TransferRecordService;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.TransferRecord;
 import org.springframework.web.bind.annotation.GetMapping;
