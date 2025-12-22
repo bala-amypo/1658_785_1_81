@@ -18,6 +18,6 @@ public class DisposalRecordController {
         return service.createDisposal(assetId, disposal);
     }
 
-    @GetMapping // [cite: 335]
+    @GetMapping 
     public List<DisposalRecord> getAll() { return service.getAllDisposals(); }
 }

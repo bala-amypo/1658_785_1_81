@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/events") // [cite: 304]
+@RequestMapping("/api/events") 
 @Tag(name = "Lifecycle Events")
 public class LifecycleEventController {
     private final LifecycleEventService service;
     public LifecycleEventController(LifecycleEventService service) { this.service = service; }
 
-    @PostMapping("/{assetId}/{userId}") // [cite: 307]
+    @PostMapping("/{assetId}/{userId}") 
     public LifecycleEvent log(@PathVariable Long assetId, @PathVariable Long userId, @RequestBody LifecycleEvent event) {
         return service.logEvent(assetId, userId, event);
     }
 
-    @GetMapping("/asset/{assetId}") // [cite: 311]
+    @GetMapping("/asset/{assetId}") 
     public List<LifecycleEvent> getByAsset(@PathVariable Long assetId) {
         return service.getEventsForAsset(assetId);
     }

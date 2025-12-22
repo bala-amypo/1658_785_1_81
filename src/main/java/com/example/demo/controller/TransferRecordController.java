@@ -6,13 +6,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/transfers") // [cite: 316]
+@RequestMapping("/api/transfers") 
 @Tag(name = "Transfers")
 public class TransferRecordController {
     private final TransferRecordService service;
     public TransferRecordController(TransferRecordService service) { this.service = service; }
 
-    @PostMapping("/{assetId}") // [cite: 319]
+    @PostMapping("/{assetId}") 
     public TransferRecord create(@PathVariable Long assetId, @RequestBody TransferRecord record) {
         return service.createTransfer(assetId, record);
     }
