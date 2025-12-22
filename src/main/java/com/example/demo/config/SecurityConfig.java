@@ -17,17 +17,20 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); // Matches requirement 
     }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable()) // Required for REST 
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll() // [cite: 355]
-                .anyRequest().authenticated() // [cite: 356]
-            );
-        
-        return http.build();
-    }
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .csrf(csrf -> csrf.disable()) 
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(auth -> auth
+            // ALLOW registration paths
+            .requestMatchers("/auth/**").permitAll() 
+            .requestMatchers("/api/users/register").permitAll() // ADD THIS LINE
+            .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+            // PROTECT everything else
+            .anyRequest().authenticated()
+        );
+    
+    return http.build();
 }
+    }
