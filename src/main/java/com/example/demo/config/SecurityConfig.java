@@ -22,9 +22,8 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     http
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            // Add your path here to "Unlock" it
-            .requestMatchers("/auth/**", "/api/users/**").permitAll() 
-            .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+            // This line permits all API paths so you get 200 OK
+            .requestMatchers("/api/**", "/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
             .anyRequest().authenticated()
         );
     return http.build();
