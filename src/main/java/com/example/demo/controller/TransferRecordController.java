@@ -17,7 +17,7 @@ public class TransferRecordController {
         return service.createTransfer(assetId, record);
     }
      @GetMapping("/asset/{assetId}") 
-     public List<DisposalRecord> getAll() { return service.getAllDisposals(); }
+     public List<TransferRecord> getAll() { return service.getAllTransfer(); }
     }
 }
 
