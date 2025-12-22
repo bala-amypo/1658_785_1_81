@@ -2,7 +2,7 @@ package com.example.demo.service.impl;
 
 import com.example.demo.entity.User;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.exception.ValidationException; // Ensure this is imported
+import com.example.demo.exception.ValidationException; 
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,22 +21,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerUser(User user) {
-        // 1. Validate Email Uniqueness
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new ValidationException("Email already in use");
         }
 
-        // 2. Validate Password Length (The 8-character rule)
         if (user.getPassword() == null || user.getPassword().length() < 8) {
             throw new ValidationException("Password must be at least 8 characters");
         }
 
-        // 3. Validate Mandatory Department
+       
         if (user.getDepartment() == null || user.getDepartment().trim().isEmpty()) {
             throw new ValidationException("Department is required");
         }
 
-        // If all validations pass, proceed with encoding and saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
