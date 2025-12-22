@@ -44,8 +44,10 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
-    @Override public List<User> getAllUsers() { return userRepository.findAll(); }
-    
+@Override 
+public List<User> getAllUsers() { 
+    return userRepository.findAll(); // This fetches data from MySQL
+}    
     @Override public User getUserByEmail(String email) { 
         return userRepository.findByEmail(email).orElse(null); 
     }

@@ -22,14 +22,13 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     http
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            // Publicly accessible
-            .requestMatchers("/auth/**", "/api/users/register").permitAll()
+            // Add your path here to "Unlock" it
+            .requestMatchers("/auth/**", "/api/users/**").permitAll() 
             .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-            
-            // Requires Login (JWT Token)
-            .anyRequest().authenticated() 
+            .anyRequest().authenticated()
         );
     return http.build();
 }
 }
+
     
