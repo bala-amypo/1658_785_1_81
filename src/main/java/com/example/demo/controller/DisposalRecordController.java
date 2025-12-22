@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/disposals") // [cite: 328]
+@RequestMapping("/api/disposals") 
 @Tag(name = "Disposals")
 public class DisposalRecordController {
     private final DisposalRecordService service;
     public DisposalRecordController(DisposalRecordService service) { this.service = service; }
 
-    @PostMapping("/{assetId}") // [cite: 331]
+    @PostMapping("/{assetId}")
     public DisposalRecord create(@PathVariable Long assetId, @RequestBody DisposalRecord disposal) {
         return service.createDisposal(assetId, disposal);
     }

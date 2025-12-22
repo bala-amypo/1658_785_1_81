@@ -21,7 +21,6 @@ public class DisposalRecordServiceImpl implements DisposalRecordService {
 
     @Override
     public DisposalRecord createDisposal(Long assetId, DisposalRecord disposal) {
-        // ... your existing create logic ...
         return disposalRecordRepository.save(disposal);
     }
 }

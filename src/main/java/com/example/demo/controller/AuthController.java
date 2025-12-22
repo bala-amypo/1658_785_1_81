@@ -7,13 +7,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth") // [cite: 263]
+@RequestMapping("/auth") 
 @Tag(name = "Authentication")
 public class AuthController {
     private final UserService userService;
     public AuthController(UserService userService) { this.userService = userService; }
 
-    @PostMapping("/register") // [cite: 267]
+    @PostMapping("/register") 
     public User register(@RequestBody RegisterRequest req) {
         User user = new User();
         user.setEmail(req.getEmail());

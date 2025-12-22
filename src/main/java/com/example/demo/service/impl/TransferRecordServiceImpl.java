@@ -21,7 +21,6 @@ public class TransferRecordServiceImpl implements TransferRecordService {
 
     @Override
     public TransferRecord createTransfer(Long assetId, TransferRecord record) {
-        // ... your existing transfer logic ...
         return transferRecordRepository.save(record);
     }
 }

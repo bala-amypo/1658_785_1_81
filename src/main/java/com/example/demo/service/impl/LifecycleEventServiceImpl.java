@@ -21,7 +21,6 @@ public class LifecycleEventServiceImpl implements LifecycleEventService {
 
     @Override
     public LifecycleEvent logEvent(Long assetId, Long userId, LifecycleEvent event) {
-        // ... your existing log logic ...
         return lifecycleEventRepository.save(event);
     }
 }
