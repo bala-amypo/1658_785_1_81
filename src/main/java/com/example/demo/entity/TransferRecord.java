@@ -30,6 +30,7 @@ public class TransferRecord {
     private String fromDepartment;
     private String toDepartment;
     private LocalDate transferDate;
-    @ManyToOne @JoinColumn(name = "approved_by_id")
+    @ManyToOne
+     @JoinColumn(name = "approved_by_id")
     private User approvedBy; 
 }
