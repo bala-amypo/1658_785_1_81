@@ -16,4 +16,8 @@ public class TransferRecordController {
     public TransferRecord create(@PathVariable Long assetId, @RequestBody TransferRecord record) {
         return service.createTransfer(assetId, record);
     }
+     @GetMapping("/asset/{assetId}") 
+    public List<TransferRecord> getByAsset(@PathVariable Long assetId) {
+        return service.getEventsForAsset(assetId);
+    }
 }
