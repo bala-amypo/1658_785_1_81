@@ -20,17 +20,16 @@ public class SecurityConfig {
 @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
-        .csrf(csrf -> csrf.disable()) 
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            // ALLOW registration paths
-            .requestMatchers("/auth/**").permitAll() 
-            .requestMatchers("/api/users/register").permitAll() // ADD THIS LINE
+            // Publicly accessible
+            .requestMatchers("/auth/**", "/api/users/register").permitAll()
             .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-            // PROTECT everything else
-            .anyRequest().authenticated()
+            
+            // Requires Login (JWT Token)
+            .anyRequest().authenticated() 
         );
-    
     return http.build();
 }
-    }
+}
+    
