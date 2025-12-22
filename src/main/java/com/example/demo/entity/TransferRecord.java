@@ -9,18 +9,27 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Getter;
+import jakarta.persistence.Setter;
 
 @Entity
 @Table(name = "transfer_records")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter 
+@Setter
+ @NoArgsConstructor
+  @AllArgsConstructor
 public class TransferRecord {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne @JoinColumn(name = "asset_id")
+    @ManyToOne
+     @JoinColumn(name = "asset_id")
     private Asset asset;
     private String fromDepartment;
     private String toDepartment;
     private LocalDate transferDate;
     @ManyToOne @JoinColumn(name = "approved_by_id")
-    private User approvedBy; // [cite: 106]
+    private User approvedBy; 
 }

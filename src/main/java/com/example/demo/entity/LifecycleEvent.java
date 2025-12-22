@@ -9,22 +9,33 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
-
+import jakarta.persistence.Getter;
+import jakarta.persistence.Setter;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Getter;
+import jakarta.persistence.Setter;
+import jakarta.persistence.PrePersist;
 @Entity
 @Data
 @Table(name = "lifecycle_events")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+ @Setter
+  @NoArgsConstructor
+   @AllArgsConstructor
 public class LifecycleEvent {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne @JoinColumn(name = "asset_id")
-    private Asset asset; // [cite: 80]
-    private String eventType; // [cite: 81]
+    @ManyToOne
+     @JoinColumn(name = "asset_id")
+    private Asset asset; 
+    private String eventType; 
     private String eventDescription;
     private LocalDateTime eventDate;
-    @ManyToOne @JoinColumn(name = "user_id")
-    private User performedBy; // [cite: 84]
+    @ManyToOne
+     @JoinColumn(name = "user_id")
+    private User performedBy;
 
     @PrePersist
-    protected void onCreate() { if (eventDate == null) eventDate = LocalDateTime.now(); } // [cite: 94]
+    protected void onCreate() { if (eventDate == null) eventDate = LocalDateTime.now(); } 
 }

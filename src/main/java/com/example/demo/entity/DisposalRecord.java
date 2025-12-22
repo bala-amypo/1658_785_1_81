@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import jakarta.persistence.Getter;
 import jakarta.persistence.Setter;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Setter;
+import jakarta.persistence.JoinColumn;
 
 
 @Entity
@@ -32,7 +32,8 @@ public class DisposalRecord {
     private Asset asset; 
     private String disposalMethod; 
     private LocalDate disposalDate;
-    @ManyToOne @JoinColumn(name = "approved_by_id")
+    @ManyToOne 
+    @JoinColumn(name = "approved_by_id")
     private User approvedBy;
     private LocalDateTime createdAt;
 
