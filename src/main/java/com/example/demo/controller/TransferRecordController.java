@@ -19,6 +19,5 @@ public class TransferRecordController {
      @GetMapping("/asset/{assetId}") 
      public List<TransferRecord> getAll() { return service.getAllTransfer(); }
     }
-}
 
   
