@@ -5,8 +5,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Getter;
-import jakarta.persistence.Setter;
+
 @Entity
 @Table(name = "users")
 @Getter

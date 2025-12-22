@@ -11,8 +11,7 @@ import lombok.*;
 import java.time.LocalDate;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Getter;
-import jakarta.persistence.Setter;
+
 
 @Entity
 @Table(name = "transfer_records")

@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
-import jakarta.persistence.Getter;
-import jakarta.persistence.Setter;
+
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Getter;
-import jakarta.persistence.Setter;
+
 import jakarta.persistence.PrePersist;
 @Entity
 @Data

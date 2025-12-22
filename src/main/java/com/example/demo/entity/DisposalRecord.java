@@ -10,8 +10,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import jakarta.persistence.Getter;
-import jakarta.persistence.Setter;
+
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
 
