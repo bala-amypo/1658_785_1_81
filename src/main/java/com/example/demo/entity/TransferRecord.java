@@ -13,22 +13,23 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
 
-
 @Entity
-@Data
+@Table(name = "transfer_records")
+@Getter 
+@Setter
+ @NoArgsConstructor
+  @AllArgsConstructor
 public class TransferRecord {
-
-    @Id
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @ManyToOne
+     @JoinColumn(name = "asset_id")
+    private Asset asset;
     private String fromDepartment;
     private String toDepartment;
     private LocalDate transferDate;
-
     @ManyToOne
-    private User approvedBy;
-
-    @ManyToOne
-    private Asset asset;
+     @JoinColumn(name = "approved_by_id")
+    private User approvedBy; 
 }
