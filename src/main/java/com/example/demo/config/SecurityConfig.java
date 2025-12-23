@@ -20,14 +20,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // 1. Disable CSRF so POST requests are allowed
+            // 1. Disable CSRF (If enabled, POST/PUT/DELETE will always return 403)
             .csrf(csrf -> csrf.disable())
             
-            // 2. Unlock ALL your API endpoints for testing
+            // 2. Configure Authorization
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**", "/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                // This line permits all your API endpoints so you get 200 OK
+                .requestMatchers("/api/**").permitAll() 
+                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                
+                // Any other request not listed above requires login
                 .anyRequest().authenticated()
-            );
+            )
+            
+            // 3. Disable Frame Options to allow Swagger/H2 Console if needed
+            .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         return http.build();
     }
