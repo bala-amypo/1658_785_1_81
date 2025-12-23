@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,19 +14,21 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Matches requirement 
+        return new BCryptPasswordEncoder();
     }
-@Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-        .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth
-            // This line permits all API paths so you get 200 OK
-            .requestMatchers("/api/**", "/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-            .anyRequest().authenticated()
-        );
-    return http.build();
-}
-}
 
-    
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            // 1. Disable CSRF so POST requests are allowed
+            .csrf(csrf -> csrf.disable())
+            
+            // 2. Unlock ALL your API endpoints for testing
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/**", "/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .anyRequest().authenticated()
+            );
+
+        return http.build();
+    }
+}
