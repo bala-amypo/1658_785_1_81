@@ -1,25 +1,58 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.RegisterRequest; // [cite: 143]
+import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.entity.User;
+import com.example.demo.security.JwtUtil;
 import com.example.demo.service.UserService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/auth") 
-@Tag(name = "Authentication")
-public class AuthController {
-    private final UserService userService;
-    public AuthController(UserService userService) { this.userService = userService; }
+import java.util.Map;
 
-    @PostMapping("/register") 
-    public User register(@RequestBody RegisterRequest req) {
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    private final AuthenticationManager authenticationManager;
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
+
+    public AuthController(AuthenticationManager authenticationManager,
+                          UserService userService,
+                          JwtUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+        this.jwtUtil = jwtUtil;
+    }
+
+    @PostMapping("/register")
+    public User register(@RequestBody RegisterRequest request) {
         User user = new User();
-        user.setEmail(req.getEmail());
-        user.setFullName(req.getFullName());
-        user.setDepartment(req.getDepartment());
-        user.setPassword(req.getPassword());
+        user.setFullName(request.getFullName());
+        user.setEmail(request.getEmail());
+        user.setDepartment(request.getDepartment());
+        user.setPassword(request.getPassword());
         return userService.registerUser(user);
+    }
+
+    @PostMapping("/login")
+    public Map<String, String> login(@RequestBody LoginRequest request) {
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+
+        User user = userService.getAllUsers().stream()
+                .filter(u -> u.getEmail().equals(request.getEmail()))
+                .findFirst()
+                .orElseThrow();
+
+        String token = jwtUtil.generateTokenForUser(user);
+        return Map.of("token", token);
     }
 }
