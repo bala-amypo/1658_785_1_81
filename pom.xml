@@ -16,7 +16,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.2</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
@@ -27,7 +27,6 @@
     </properties>
 
     <dependencies>
-
         <!-- Spring Boot Starter Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,27 +39,29 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- MySQL Connector (or H2 if in-memory DB for testing) -->
+        <!-- MySQL Connector with version -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.1.0</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- Optional H2 for tests -->
+
+        <!-- Optional H2 database for tests -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- JWT dependency -->
+        <!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
 
-        <!-- Lombok (optional, only if you want to use @Getter/@Setter) -->
+        <!-- Lombok (optional) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -73,7 +74,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <exclusions>
-                <!-- Exclude JUnit 5 so we can use TestNG -->
                 <exclusion>
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
@@ -93,7 +93,6 @@
 
     <build>
         <plugins>
-
             <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -112,7 +111,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Surefire Plugin (to use TestNG) -->
+            <!-- Maven Surefire Plugin for TestNG -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
