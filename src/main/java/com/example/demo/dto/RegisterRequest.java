@@ -1,34 +1,33 @@
-package com.example.demo.dto;
+package com.example.demo.payload;
 
 public class RegisterRequest {
 
-    private String fullName;
-    private String email;
-    private String department;
+    private String username;
     private String password;
+    private String email;
+    private String role;
 
-    // ✅ REQUIRED: No-arg constructor
-    public RegisterRequest() {
-    }
+    // No-arg constructor required for Spring / Jackson
+    public RegisterRequest() {}
 
-    // ✅ REQUIRED: All-args constructor (TEST EXPECTS THIS)
-    public RegisterRequest(String fullName, String email, String department, String password) {
-        this.fullName = fullName;
-        this.email = email;
-        this.department = department;
+    // Constructor used in tests
+    public RegisterRequest(String username, String password, String email, String role) {
+        this.username = username;
         this.password = password;
+        this.email = email;
+        this.role = role;
     }
 
-    // getters & setters
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
+    // Getters and Setters
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public String getDepartment() { return department; }
-    public void setDepartment(String department) { this.department = department; }
-
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }

@@ -7,9 +7,9 @@ import com.example.demo.entity.TransferRecord;
 
 public interface TransferRecordRepository extends JpaRepository<TransferRecord, Long> {
 
-    // Original
+    // Original JPA method
     List<TransferRecord> findByAsset_Id(Long assetId);
 
-    // Alias for service
+    // Alias used in services/tests
     List<TransferRecord> findByAssetId(Long assetId);
 }

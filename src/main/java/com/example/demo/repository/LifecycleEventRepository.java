@@ -7,9 +7,9 @@ import com.example.demo.entity.LifecycleEvent;
 
 public interface LifecycleEventRepository extends JpaRepository<LifecycleEvent, Long> {
 
-    // Original
+    // Original JPA method
     List<LifecycleEvent> findByAsset_Id(Long assetId);
 
-    // Alias for service
+    // Alias used in services/tests
     List<LifecycleEvent> findByAssetId(Long assetId);
 }

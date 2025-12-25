@@ -15,10 +15,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "mysecretkey12345"; // your secret key
+    private final String SECRET_KEY = "mysecretkey12345"; // replace with your secret
 
-    // ===== Core methods =====
-
+    // ===== Core Methods =====
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
     }
@@ -44,8 +43,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    // ===== Methods we added for your code =====
-
+    // ===== Additional Methods for your code =====
     public boolean isTokenValid(String token, String username) {
         try {
             String extractedUsername = extractUsername(token);
@@ -65,7 +63,14 @@ public class JwtUtil {
         claims.put("userId", user.getId());
         claims.put("email", user.getEmail());
         claims.put("role", user.getRole());
-
         return generateToken(claims, user.getEmail());
+    }
+
+    public String extractRole(String token) {
+        return parseToken(token).get("role", String.class);
+    }
+
+    public Long extractUserId(String token) {
+        return parseToken(token).get("userId", Long.class);
     }
 }
