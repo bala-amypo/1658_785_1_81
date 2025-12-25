@@ -21,10 +21,7 @@ public class TransferRecordServiceImpl implements TransferRecordService {
     private final AssetRepository assetRepository;
     private final UserRepository userRepository;
 
-    // ⚠️ ORDER MATTERS
-    public TransferRecordServiceImpl(TransferRecordRepository transferRecordRepository,
-                                     AssetRepository assetRepository,
-                                     UserRepository userRepository) {
+    public TransferRecordServiceImpl(TransferRecordRepository transferRecordRepository, AssetRepository assetRepository,UserRepository userRepository) {
         this.transferRecordRepository = transferRecordRepository;
         this.assetRepository = assetRepository;
         this.userRepository = userRepository;
@@ -60,7 +57,6 @@ public class TransferRecordServiceImpl implements TransferRecordService {
 
     @Override
     public TransferRecord getTransfer(Long id) {
-        return transferRecordRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Transfer record not found"));
+        return transferRecordRepository.findById(id) .orElseThrow(() -> new ResourceNotFoundException("Transfer record not found"));
     }
 }

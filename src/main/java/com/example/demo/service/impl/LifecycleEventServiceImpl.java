@@ -20,7 +20,6 @@ public class LifecycleEventServiceImpl implements LifecycleEventService {
     private final AssetRepository assetRepository;
     private final UserRepository userRepository;
 
-    // ⚠️ ORDER MATTERS
     public LifecycleEventServiceImpl(LifecycleEventRepository lifecycleEventRepository,
                                      AssetRepository assetRepository,
                                      UserRepository userRepository) {
@@ -55,7 +54,6 @@ public class LifecycleEventServiceImpl implements LifecycleEventService {
 
     @Override
     public LifecycleEvent getEvent(Long id) {
-        return lifecycleEventRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Lifecycle event not found"));
+        return lifecycleEventRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Lifecycle event not found"));
     }
 }
