@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class LoginRequest {
     private String username;
     private String password;
+    private String email; // Add this because controller calls getEmail()
 }

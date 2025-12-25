@@ -11,5 +11,5 @@ public class RegisterRequest {
     private String username;
     private String password;
     private String email;
-    private String fullName;
+    private String department; // Add this because controller calls getDepartment()
 }
