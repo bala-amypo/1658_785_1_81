@@ -33,7 +33,7 @@ public class AssetController {
 
     @PutMapping("/status/{id}")
     public Asset updateStatus(@PathVariable Long id,
-                              @RequestParam String status) {
+         @RequestParam String status) {
         return assetService.updateStatus(id, status);
     }
 }

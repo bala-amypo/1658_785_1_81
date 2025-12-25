@@ -23,9 +23,7 @@ public class TransferRecord {
 
     public TransferRecord() {}
 
-    public TransferRecord(Long id, Asset asset, String fromDepartment,
-                          String toDepartment, LocalDate transferDate,
-                          User approvedBy) {
+    public TransferRecord(Long id, Asset asset, String fromDepartment,String toDepartment, LocalDate transferDate,User approvedBy) {
         this.id = id;
         this.asset = asset;
         this.fromDepartment = fromDepartment;
@@ -34,7 +32,6 @@ public class TransferRecord {
         this.approvedBy = approvedBy;
     }
 
-    // getters and setters
     public Long getId() { return id; }
     public Asset getAsset() { return asset; }
     public String getFromDepartment() { return fromDepartment; }

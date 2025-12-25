@@ -43,7 +43,6 @@ public class LifecycleEvent {
         }
     }
 
-    // getters and setters
     public Long getId() { return id; }
     public Asset getAsset() { return asset; }
     public String getEventType() { return eventType; }

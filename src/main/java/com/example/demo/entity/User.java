@@ -26,8 +26,7 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String fullName, String email, String department,
-                String role, String password, LocalDateTime createdAt) {
+    public User(Long id, String fullName, String email, String department, String role, String password, LocalDateTime createdAt) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -47,7 +46,6 @@ public class User {
         }
     }
 
-    // getters and setters
     public Long getId() { return id; }
     public String getFullName() { return fullName; }
     public String getEmail() { return email; }

@@ -54,7 +54,6 @@ public class Asset {
         }
     }
 
-    // getters and setters
     public Long getId() { return id; }
     public String getAssetTag() { return assetTag; }
     public String getAssetType() { return assetType; }

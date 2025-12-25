@@ -17,9 +17,7 @@ public class LifecycleEventController {
     }
 
     @PostMapping("/{assetId}/{userId}")
-    public LifecycleEvent create(@PathVariable Long assetId,
-                                 @PathVariable Long userId,
-                                 @RequestBody LifecycleEvent event) {
+    public LifecycleEvent create(@PathVariable Long assetId, @PathVariable Long userId, @RequestBody LifecycleEvent event) {
         return service.logEvent(assetId, userId, event);
     }
 

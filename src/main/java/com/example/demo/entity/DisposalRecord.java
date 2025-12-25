@@ -45,7 +45,6 @@ public class DisposalRecord {
         }
     }
 
-    // getters and setters
     public Long getId() { return id; }
     public Asset getAsset() { return asset; }
     public String getDisposalMethod() { return disposalMethod; }
