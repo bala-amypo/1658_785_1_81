@@ -8,5 +8,4 @@ public interface AssetService {
     Asset getAsset(Long id);
     List<Asset> getAllAssets();
     Asset updateStatus(Long assetId, String status);
-    List<Asset> getAssetsByStatus(String status);
 }

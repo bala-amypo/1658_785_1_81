@@ -5,5 +5,6 @@ import java.util.List;
 
 public interface TransferRecordService {
     TransferRecord createTransfer(Long assetId, TransferRecord record);
-    List<TransferRecord> getTransfersByAsset(Long assetId);
+    List<TransferRecord> getTransfersForAsset(Long assetId);
+    TransferRecord getTransfer(Long id);
 }
