@@ -1,49 +1,26 @@
-package com.example.demo.security;
-
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
-@Component
-public class JwtUtil {
-
-    @Value("${jwt.secret}")
-    private String secret;
-
-    @Value("${jwt.expiration}")
-    private long expiration;
-
-    private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
+public boolean isTokenValid(String token, String username) {
+    try {
+        String extractedUsername = extractUsername(token);
+        return extractedUsername.equals(username) && !isTokenExpired(token);
+    } catch (Exception e) {
+        return false;
     }
+}
 
-    // ✅ REQUIRED BY TEST
-    public String generateToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-                .compact();
-    }
+private boolean isTokenExpired(String token) {
+    Date expiration = parseToken(token).getExpiration();
+    return expiration.before(new Date());
+}
 
-    // ✅ REQUIRED BY TEST
-    public Claims parseToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
+public String generateTokenForUser(com.example.demo.entity.User user) {
+    Map<String, Object> claims = new HashMap<>();
+    claims.put("userId", user.getId());
+    claims.put("email", user.getEmail());
+    claims.put("role", user.getRole());
 
-    // already expected by earlier tests
-    public String extractUsername(String token) {
-        return parseToken(token).getSubject();
-    }
+    return generateToken(claims, user.getEmail());
 }
