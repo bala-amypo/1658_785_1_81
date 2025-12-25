@@ -1,39 +1,60 @@
 package com.example.demo.entity;
-import lombok.Data;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
-import lombok.*;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-
-import jakarta.persistence.PrePersist;
 @Entity
-@Data
 @Table(name = "lifecycle_events")
-@Getter
- @Setter
-  @NoArgsConstructor
-   @AllArgsConstructor
 public class LifecycleEvent {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
-     @JoinColumn(name = "asset_id")
-    private Asset asset; 
-    private String eventType; 
+    private Asset asset;
+
+    private String eventType;
+
     private String eventDescription;
+
     private LocalDateTime eventDate;
+
     @ManyToOne
-     @JoinColumn(name = "user_id")
     private User performedBy;
 
+    public LifecycleEvent() {}
+
+    public LifecycleEvent(Long id, Asset asset, String eventType,
+                          String eventDescription, LocalDateTime eventDate,
+                          User performedBy) {
+        this.id = id;
+        this.asset = asset;
+        this.eventType = eventType;
+        this.eventDescription = eventDescription;
+        this.eventDate = eventDate;
+        this.performedBy = performedBy;
+    }
+
     @PrePersist
-    protected void onCreate() { if (eventDate == null) eventDate = LocalDateTime.now(); } 
+    public void prePersist() {
+        if (this.eventDate == null) {
+            this.eventDate = LocalDateTime.now();
+        }
+    }
+
+    // getters and setters
+    public Long getId() { return id; }
+    public Asset getAsset() { return asset; }
+    public String getEventType() { return eventType; }
+    public String getEventDescription() { return eventDescription; }
+    public LocalDateTime getEventDate() { return eventDate; }
+    public User getPerformedBy() { return performedBy; }
+
+    public void setId(Long id) { this.id = id; }
+    public void setAsset(Asset asset) { this.asset = asset; }
+    public void setEventType(String eventType) { this.eventType = eventType; }
+    public void setEventDescription(String eventDescription) { this.eventDescription = eventDescription; }
+    public void setEventDate(LocalDateTime eventDate) { this.eventDate = eventDate; }
+    public void setPerformedBy(User performedBy) { this.performedBy = performedBy; }
 }
