@@ -29,11 +29,9 @@ public class TransferRecordServiceImpl implements TransferRecordService {
 
     @Override
     public TransferRecord createTransfer(Long assetId, TransferRecord record) {
-        Asset asset = assetRepository.findById(assetId)
-                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
+        Asset asset = assetRepository.findById(assetId).orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
 
-        User approver = userRepository.findById(record.getApprovedBy().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User approver = userRepository.findById(record.getApprovedBy().getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         if (!"ADMIN".equals(approver.getRole())) {
             throw new ValidationException("Approver must be ADMIN");
