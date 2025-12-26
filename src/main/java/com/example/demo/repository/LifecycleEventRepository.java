@@ -1,8 +1,15 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.Asset;
+import com.example.demo.entity.LifecycleEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.*;
-import com.example.demo.entity.*;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
 public interface LifecycleEventRepository extends JpaRepository<LifecycleEvent, Long> {
-    List<LifecycleEvent> findByAsset_Id(Long assetId);
+
+    // Find all events for a specific asset
+    List<LifecycleEvent> findByAsset(Asset asset);
 }
