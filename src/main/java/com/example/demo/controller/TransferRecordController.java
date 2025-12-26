@@ -2,32 +2,38 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.TransferRecord;
 import com.example.demo.service.TransferRecordService;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/transfers")
-@Tag(name = "Transfers")
 public class TransferRecordController {
 
-    private final TransferRecordService service;
+    private final TransferRecordService transferRecordService;
 
-    public TransferRecordController(TransferRecordService service) {
-        this.service = service;
+    public TransferRecordController(TransferRecordService transferRecordService) {
+        this.transferRecordService = transferRecordService;
     }
 
-    @PostMapping("/{assetId}")
-    public TransferRecord create(@PathVariable Long assetId,
-                                 @RequestBody TransferRecord record) {
-        return service.createTransfer(assetId, record);
+    @PostMapping("/asset/{assetId}")
+    public ResponseEntity<TransferRecord> createTransfer(
+            @PathVariable Long assetId,
+            @RequestBody TransferRecord transferRecord) {
+
+        TransferRecord saved =
+                transferRecordService.createTransfer(assetId, transferRecord);
+
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
     @GetMapping("/asset/{assetId}")
-    public List<TransferRecord> byAsset(@PathVariable Long assetId) {
-        return service.getTransfersForAsset(assetId);
-    }
+    public ResponseEntity<List<TransferRecord>> getTransfersForAsset(
+            @PathVariable Long assetId) {
 
-    @GetMapping("/{id}")
-    public Tra
+        return ResponseEntity.ok(
+                transferRecordService.getTransfersForAsset(assetId));
+    }
+}
