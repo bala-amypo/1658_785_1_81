@@ -2,8 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.TransferRecord;
 import com.example.demo.service.TransferRecordService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,22 +16,19 @@ public class TransferRecordController {
         this.transferRecordService = transferRecordService;
     }
 
-    @PostMapping("/asset/{assetId}")
-    public ResponseEntity<TransferRecord> createTransfer(
-            @PathVariable Long assetId,
-            @RequestBody TransferRecord transferRecord) {
-
-        TransferRecord saved =
-                transferRecordService.createTransfer(assetId, transferRecord);
-
-        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    @PostMapping("/{assetId}")
+    public TransferRecord create(@PathVariable Long assetId,
+                                 @RequestBody TransferRecord record) {
+        return transferRecordService.createTransfer(assetId, record);
     }
 
     @GetMapping("/asset/{assetId}")
-    public ResponseEntity<List<TransferRecord>> getTransfersForAsset(
-            @PathVariable Long assetId) {
+    public List<TransferRecord> getByAsset(@PathVariable Long assetId) {
+        return transferRecordService.getTransfersForAsset(assetId);
+    }
 
-        return ResponseEntity.ok(
-                transferRecordService.getTransfersForAsset(assetId));
+    @GetMapping("/{id}")
+    public TransferRecord getById(@PathVariable Long id) {
+        return transferRecordService.getTransfer(id);
     }
 }
