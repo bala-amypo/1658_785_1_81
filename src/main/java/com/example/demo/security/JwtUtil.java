@@ -2,8 +2,10 @@ package com.example.demo.security;
 
 import io.jsonwebtoken.*;
 import java.util.*;
+import org.springframework.stereotype.Component;
 import com.example.demo.entity.User;
 
+@Component   // ✅ THIS IS THE FIX
 public class JwtUtil {
 
     private final String SECRET = "secretkey";
