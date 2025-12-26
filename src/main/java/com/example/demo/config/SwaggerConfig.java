@@ -1,11 +1,12 @@
 package com.example.demo.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
+import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
@@ -13,7 +14,11 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .servers(Collections.singletonList(
+                .info(new Info()
+                        .title("Demo API")
+                        .version("1.0")
+                        .description("Spring Boot Demo API with Swagger"))
+                .servers(List.of(
                         new Server().url("https://9183.pro604cr.amypo.ai/")
                 ));
     }
