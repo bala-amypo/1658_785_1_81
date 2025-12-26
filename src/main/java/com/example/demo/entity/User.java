@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users")
 public class User {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -16,8 +18,11 @@ public class User {
     private String password;
     private LocalDateTime createdAt;
 
-    public User() {}
+    // ✅ No-args constructor (required by JPA & tests)
+    public User() {
+    }
 
+    // ✅ All-args constructor (used in tests)
     public User(Long id, String name, String email, String department,
                 String role, String password, LocalDateTime createdAt) {
         this.id = id;
@@ -29,16 +34,85 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    // ✅ Auto-populate fields before save
     @PrePersist
     public void prePersist() {
-        if (role == null) role = "USER";
-        createdAt = LocalDateTime.now();
+        if (this.role == null) {
+            this.role = "USER";
+        }
+        this.createdAt = LocalDateTime.now();
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getEmail() { return email; }
-    public String getDepartment() { return department; }
-    public String getRole() { return role; }
-    public String getPassword() { return password; }
+    // ===================== GETTERS =====================
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    // Needed by AuthController (fullName → name)
+    public String getFullName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    // ===================== SETTERS =====================
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    // Needed by AuthController
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFullName(String fullName) {
+        this.name = fullName;
+    }
+
+    // Needed by AuthController
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    // Needed by AuthController
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    // Needed by UserServiceImpl
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }
