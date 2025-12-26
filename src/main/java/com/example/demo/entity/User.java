@@ -1,26 +1,44 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String fullName;
+
+    @Column(unique = true)
     private String email;
-    private String password;
+
     private String department;
     private String role;
+    private String password;
+    private LocalDateTime createdAt;
 
-    // Lombok @Data generates all getters and setters
+    public User() {}
+
+    public User(Long id, String fullName, String email,
+                String department, String role,
+                String password, LocalDateTime createdAt) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.department = department;
+        this.role = role;
+        this.password = password;
+        this.createdAt = createdAt;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (role == null) role = "USER";
+        if (createdAt == null) createdAt = LocalDateTime.now();
+    }
+
+    // getters & setters
 }

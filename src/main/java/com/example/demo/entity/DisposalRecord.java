@@ -6,10 +6,10 @@ import java.time.*;
 @Entity
 public class DisposalRecord {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     private Asset asset;
 
     private String disposalMethod;
@@ -23,9 +23,10 @@ public class DisposalRecord {
 
     public DisposalRecord() {}
 
-    public DisposalRecord(Long id, Asset asset, String disposalMethod,
-                          LocalDate disposalDate, User approvedBy,
-                          String notes, LocalDateTime createdAt) {
+    public DisposalRecord(Long id, Asset asset,
+                          String disposalMethod, LocalDate disposalDate,
+                          User approvedBy, String notes,
+                          LocalDateTime createdAt) {
         this.id = id;
         this.asset = asset;
         this.disposalMethod = disposalMethod;
@@ -37,13 +38,8 @@ public class DisposalRecord {
 
     @PrePersist
     public void prePersist() {
-        createdAt = LocalDateTime.now();
+        if (createdAt == null) createdAt = LocalDateTime.now();
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public void setAsset(Asset asset) { this.asset = asset; }
-    public void setDisposalMethod(String disposalMethod) { this.disposalMethod = disposalMethod; }
-    public void setDisposalDate(LocalDate disposalDate) { this.disposalDate = disposalDate; }
-    public void setApprovedBy(User approvedBy) { this.approvedBy = approvedBy; }
+    // getters & setters
 }

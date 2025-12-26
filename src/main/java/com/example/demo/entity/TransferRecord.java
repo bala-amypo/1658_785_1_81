@@ -1,23 +1,36 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "transfer_records")
 public class TransferRecord {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long assetId;
-    private String fromLocation;
-    private String toLocation;
-    private String transferDate;
+    @ManyToOne
+    private Asset asset;
+
+    private String fromDepartment;
+    private String toDepartment;
+    private LocalDate transferDate;
+
+    @ManyToOne
+    private User approvedBy;
+
+    public TransferRecord() {}
+
+    public TransferRecord(Long id, Asset asset,
+                          String fromDepartment, String toDepartment,
+                          LocalDate transferDate, User approvedBy) {
+        this.id = id;
+        this.asset = asset;
+        this.fromDepartment = fromDepartment;
+        this.toDepartment = toDepartment;
+        this.transferDate = transferDate;
+        this.approvedBy = approvedBy;
+    }
+
+    // getters & setters
 }

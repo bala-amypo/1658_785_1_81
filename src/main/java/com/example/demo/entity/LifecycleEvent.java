@@ -1,39 +1,41 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.time.*;
 
 @Entity
 public class LifecycleEvent {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "asset_id")
     private Asset asset;
 
+    private String eventType;
+    private String eventDescription;
+    private LocalDateTime eventDate;
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private User performedBy;
 
-    private String action;
-    private LocalDateTime timestamp;
+    public LifecycleEvent() {}
 
-    // Getters & Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public LifecycleEvent(Long id, Asset asset, String eventType,
+                          String eventDescription,
+                          LocalDateTime eventDate, User performedBy) {
+        this.id = id;
+        this.asset = asset;
+        this.eventType = eventType;
+        this.eventDescription = eventDescription;
+        this.eventDate = eventDate;
+        this.performedBy = performedBy;
+    }
 
-    public Asset getAsset() { return asset; }
-    public void setAsset(Asset asset) { this.asset = asset; }
+    @PrePersist
+    public void prePersist() {
+        if (eventDate == null) eventDate = LocalDateTime.now();
+    }
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
-
-    public String getAction() { return action; }
-    public void setAction(String action) { this.action = action; }
-
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
+    // getters & setters
 }
