@@ -9,16 +9,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "transfer_records")
 public class TransferRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fromAccount;
-    private String toAccount;
-    private double amount;
+    private Long assetId; // added field for asset
+    private String fromLocation;
+    private String toLocation;
+    private String transferDate;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    // Lombok @Data generates get/set methods automatically
 }
