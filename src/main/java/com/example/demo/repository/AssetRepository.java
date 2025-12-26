@@ -1,9 +1,8 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Asset;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
-
+import java.util.*;
+import com.example.demo.entity.*;
 public interface AssetRepository extends JpaRepository<Asset, Long> {
     List<Asset> findByStatus(String status);
 }

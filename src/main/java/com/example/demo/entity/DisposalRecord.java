@@ -1,18 +1,15 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 
 @Entity
-@Table(name = "disposal_records")
 public class DisposalRecord {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private Asset asset;
 
     private String disposalMethod;
@@ -40,24 +37,13 @@ public class DisposalRecord {
 
     @PrePersist
     public void prePersist() {
-        if (this.createdAt == null) {
-            this.createdAt = LocalDateTime.now();
-        }
+        createdAt = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
-    public Asset getAsset() { return asset; }
-    public String getDisposalMethod() { return disposalMethod; }
-    public LocalDate getDisposalDate() { return disposalDate; }
-    public User getApprovedBy() { return approvedBy; }
-    public String getNotes() { return notes; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-
     public void setId(Long id) { this.id = id; }
     public void setAsset(Asset asset) { this.asset = asset; }
     public void setDisposalMethod(String disposalMethod) { this.disposalMethod = disposalMethod; }
     public void setDisposalDate(LocalDate disposalDate) { this.disposalDate = disposalDate; }
     public void setApprovedBy(User approvedBy) { this.approvedBy = approvedBy; }
-    public void setNotes(String notes) { this.notes = notes; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
