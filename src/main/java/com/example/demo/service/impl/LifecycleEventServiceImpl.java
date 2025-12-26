@@ -20,8 +20,7 @@ public class LifecycleEventServiceImpl implements LifecycleEventService {
     private final AssetRepository assetRepository;
     private final UserRepository userRepository;
 
-    public LifecycleEventServiceImpl(LifecycleEventRepository lifecycleEventRepository,AssetRepository assetRepository,
-                                     UserRepository userRepository) {
+    public LifecycleEventServiceImpl(LifecycleEventRepository lifecycleEventRepository,AssetRepository assetRepository,UserRepository userRepository) {
         this.lifecycleEventRepository = lifecycleEventRepository;
         this.assetRepository = assetRepository;
         this.userRepository = userRepository;
