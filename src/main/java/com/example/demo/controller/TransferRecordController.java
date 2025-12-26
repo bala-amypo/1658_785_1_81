@@ -17,8 +17,7 @@ public class TransferRecordController {
     }
 
     @PostMapping("/{assetId}")
-    public TransferRecord create(@PathVariable Long assetId,
-                                 @RequestBody TransferRecord record) {
+    public TransferRecord create(@PathVariable Long assetId,@RequestBody TransferRecord record) {
         return transferRecordService.createTransfer(assetId, record);
     }
 

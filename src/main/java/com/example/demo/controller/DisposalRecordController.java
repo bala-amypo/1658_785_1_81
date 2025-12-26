@@ -17,8 +17,7 @@ public class DisposalRecordController {
     }
 
     @PostMapping("/{assetId}")
-    public DisposalRecord create(@PathVariable Long assetId,
-                                 @RequestBody DisposalRecord record) {
+    public DisposalRecord create(@PathVariable Long assetId, @RequestBody DisposalRecord record) {
         return disposalRecordService.createDisposal(assetId, record);
     }
 

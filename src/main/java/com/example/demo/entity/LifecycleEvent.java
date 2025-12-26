@@ -28,11 +28,9 @@ public class LifecycleEvent {
     @JoinColumn(name = "performed_by", nullable = false)
     private User performedBy;
 
-    // ✅ No-arg constructor (required by JPA)
     public LifecycleEvent() {
     }
 
-    // ✅ All-args constructor
     public LifecycleEvent(Long id, Asset asset, String eventType,
                           String eventDescription, LocalDateTime eventDate,
                           User performedBy) {
@@ -44,7 +42,6 @@ public class LifecycleEvent {
         this.performedBy = performedBy;
     }
 
-    // ================= GETTERS & SETTERS =================
 
     public Long getId() {
         return id;
@@ -94,7 +91,6 @@ public class LifecycleEvent {
         this.performedBy = performedBy;
     }
 
-    // ✅ REQUIRED FOR TEST CASES
     @PrePersist
     public void prePersist() {
         if (this.eventDate == null) {

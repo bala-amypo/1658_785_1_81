@@ -20,8 +20,7 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String fullName, String email, String department, String role,
-                String password, LocalDateTime createdAt) {
+    public User(Long id, String fullName, String email, String department, String role,String password, LocalDateTime createdAt) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -37,7 +36,6 @@ public class User {
         if (createdAt == null) createdAt = LocalDateTime.now();
     }
 
-    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getFullName() { return fullName; }
