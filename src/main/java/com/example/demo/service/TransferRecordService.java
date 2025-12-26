@@ -1,7 +1,11 @@
 package com.example.demo.service;
+
 import com.example.demo.entity.TransferRecord;
+
 import java.util.List;
 
 public interface TransferRecordService {
-    List<TransferRecord> getTransfersForAsset(Long assetId); // Added to satisfy implementation
+    TransferRecord createTransfer(Long userId, TransferRecord transferRecord);
+    List<TransferRecord> getAllTransfers();
+    TransferRecord getTransfer(Long id);
 }

@@ -1,43 +1,24 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class TransferRecord {
-
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Asset asset;
-
-    private String fromDepartment;
-    private String toDepartment;
-    private LocalDate transferDate;
+    private String fromAccount;
+    private String toAccount;
+    private double amount;
 
     @ManyToOne
-    private User approvedBy;
-
-    public TransferRecord() {}
-
-    public TransferRecord(Long id, Asset asset, String fromDepartment,
-                          String toDepartment, LocalDate transferDate,
-                          User approvedBy) {
-        this.id = id;
-        this.asset = asset;
-        this.fromDepartment = fromDepartment;
-        this.toDepartment = toDepartment;
-        this.transferDate = transferDate;
-        this.approvedBy = approvedBy;
-    }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public LocalDate getTransferDate() { return transferDate; }
-    public void setTransferDate(LocalDate transferDate) { this.transferDate = transferDate; }
-    public void setFromDepartment(String fromDepartment) { this.fromDepartment = fromDepartment; }
-    public void setToDepartment(String toDepartment) { this.toDepartment = toDepartment; }
-    public void setApprovedBy(User approvedBy) { this.approvedBy = approvedBy; }
-    public void setAsset(Asset asset) { this.asset = asset; }
+    @JoinColumn(name="user_id")
+    private User user;
 }
