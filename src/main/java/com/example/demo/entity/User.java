@@ -1,118 +1,30 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import lombok.Data; // If using Lombok
 
 @Entity
 @Table(name = "users")
+@Data // This automatically generates getUsername()
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String email;
-    private String department;
-    private String role;
+    @Column(unique = true, nullable = false)
+    private String username;
+
     private String password;
-    private LocalDateTime createdAt;
 
-    // ✅ No-args constructor (required by JPA & tests)
-    public User() {
+    // IF YOU ARE NOT USING LOMBOK, UNCOMMENT THIS CODE:
+    /*
+    public String getUsername() {
+        return username;
     }
 
-    // ✅ All-args constructor (used in tests)
-    public User(Long id, String name, String email, String department,
-                String role, String password, LocalDateTime createdAt) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.department = department;
-        this.role = role;
-        this.password = password;
-        this.createdAt = createdAt;
+    public void setUsername(String username) {
+        this.username = username;
     }
-
-    // ✅ Auto-populate fields before save
-    @PrePersist
-    public void prePersist() {
-        if (this.role == null) {
-            this.role = "USER";
-        }
-        this.createdAt = LocalDateTime.now();
-    }
-
-    // ===================== GETTERS =====================
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    // Needed by AuthController (fullName → name)
-    public String getFullName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    // ===================== SETTERS =====================
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    // Needed by AuthController
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setFullName(String fullName) {
-        this.name = fullName;
-    }
-
-    // Needed by AuthController
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    // Needed by AuthController
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    // Needed by UserServiceImpl
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    */
 }
