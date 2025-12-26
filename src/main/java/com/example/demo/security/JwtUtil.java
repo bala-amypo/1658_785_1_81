@@ -25,15 +25,15 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
-        return parseToken(token).getPayload().getSubject();
+        return parseToken(token).getBody().getSubject();
     }
 
     public String extractRole(String token) {
-        return (String) parseToken(token).getPayload().get("role");
+        return (String) parseToken(token).getBody().get("role");
     }
 
     public Long extractUserId(String token) {
-        return ((Number) parseToken(token).getPayload().get("userId")).longValue();
+        return ((Number) parseToken(token).getBody().get("userId")).longValue();
     }
 
     public boolean isTokenValid(String token, String username) {
@@ -41,6 +41,8 @@ public class JwtUtil {
     }
 
     public Jws<Claims> parseToken(String token) {
-        return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
+        return Jwts.parser()
+                .setSigningKey(SECRET)
+                .parseClaimsJws(token);
     }
 }
