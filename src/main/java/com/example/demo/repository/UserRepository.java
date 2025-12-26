@@ -8,6 +8,12 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     
-    // Add this line to fix the "cannot find symbol" error
+    // Fix for CustomUserDetailsService
     Optional<User> findByUsername(String username);
+
+    // FIX FOR UserServiceImpl: Add this line
+    boolean existsByEmail(String email);
+    
+    // Recommended: Also add this to check for duplicate usernames during registration
+    boolean existsByUsername(String username);
 }
