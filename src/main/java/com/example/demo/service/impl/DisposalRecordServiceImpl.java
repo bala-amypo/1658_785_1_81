@@ -21,9 +21,7 @@ public class DisposalRecordServiceImpl implements DisposalRecordService {
     private final AssetRepository assetRepository;
     private final UserRepository userRepository;
 
-    public DisposalRecordServiceImpl(DisposalRecordRepository disposalRecordRepository,
-                                     AssetRepository assetRepository,
-                                     UserRepository userRepository) {
+    public DisposalRecordServiceImpl(DisposalRecordRepository disposalRecordRepository,AssetRepository assetRepository,UserRepository userRepository) {
         this.disposalRecordRepository = disposalRecordRepository;
         this.assetRepository = assetRepository;
         this.userRepository = userRepository;

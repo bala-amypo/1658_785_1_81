@@ -13,29 +13,22 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60; 
 
-    // ✅ REQUIRED for JJWT 0.12.x (must be at least 256 bits)
     private static final SecretKey KEY =
             Keys.hmacShaKeyFor("my-super-secret-key-my-super-secret-key-123456".getBytes());
 
-    /* =========================
-       CORE TOKEN GENERATION
-       ========================= */
-
+  
     public String generateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
-                .claims(claims)               // NEW API
+                .claims(claims)               
                 .subject(subject)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(KEY)                // NEW API
+                .signWith(KEY)                
                 .compact();
     }
 
-    /* =========================
-       REQUIRED BY TEST CASES
-       ========================= */
 
     public String generateTokenForUser(User user) {
         Map<String, Object> claims = new HashMap<>();
@@ -45,18 +38,14 @@ public class JwtUtil {
         return generateToken(claims, user.getEmail());
     }
 
-    // ✅ MUST return Jws<Claims> AND support getPayload()
     public Jws<Claims> parseToken(String token) {
         return Jwts.parser()
-                .verifyWith(KEY)       // ✅ JJWT 0.12.x API
+                .verifyWith(KEY)       
                 .build()
                 .parseSignedClaims(token);
     }
 
-    // =========================
-    // Used by tests
-    // =========================
-
+  
     public String extractUsername(String token) {
         return parseToken(token).getPayload().getSubject();
     }
@@ -77,7 +66,6 @@ public class JwtUtil {
                 .before(new Date());
     }
 
-    // REQUIRED BY TESTS
     public boolean isTokenValid(String token, String username) {
         return extractUsername(token).equals(username) && !isTokenExpired(token);
     }

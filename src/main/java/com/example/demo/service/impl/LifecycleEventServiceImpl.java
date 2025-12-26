@@ -20,8 +20,7 @@ public class LifecycleEventServiceImpl implements LifecycleEventService {
     private final AssetRepository assetRepository;
     private final UserRepository userRepository;
 
-    public LifecycleEventServiceImpl(LifecycleEventRepository lifecycleEventRepository,
-                                     AssetRepository assetRepository,
+    public LifecycleEventServiceImpl(LifecycleEventRepository lifecycleEventRepository,AssetRepository assetRepository,
                                      UserRepository userRepository) {
         this.lifecycleEventRepository = lifecycleEventRepository;
         this.assetRepository = assetRepository;
@@ -30,11 +29,9 @@ public class LifecycleEventServiceImpl implements LifecycleEventService {
 
     @Override
     public LifecycleEvent logEvent(Long assetId, Long userId, LifecycleEvent event) {
-        Asset asset = assetRepository.findById(assetId)
-                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
+        Asset asset = assetRepository.findById(assetId).orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         if (event.getEventType() == null) {
             throw new ValidationException("Event type is required");
@@ -55,7 +52,6 @@ public class LifecycleEventServiceImpl implements LifecycleEventService {
 
     @Override
     public LifecycleEvent getEvent(Long id) {
-        return lifecycleEventRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Lifecycle event not found"));
+        return lifecycleEventRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Lifecycle event not found"));
     }
 }
