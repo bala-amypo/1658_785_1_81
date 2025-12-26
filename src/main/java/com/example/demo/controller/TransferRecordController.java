@@ -2,39 +2,32 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.TransferRecord;
 import com.example.demo.service.TransferRecordService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/transfers")
+@Tag(name = "Transfers")
 public class TransferRecordController {
 
     private final TransferRecordService service;
 
-    @Autowired
     public TransferRecordController(TransferRecordService service) {
         this.service = service;
     }
 
     @PostMapping("/{assetId}")
-    public TransferRecord createTransfer(@PathVariable Long assetId, @RequestBody TransferRecord transferRecord) {
-        return service.createTransfer(assetId, transferRecord);
-    }
-
-    @GetMapping
-    public List<TransferRecord> getAllTransfers() {
-        return service.getAllTransfers();
-    }
-
-    @GetMapping("/{id}")
-    public TransferRecord getTransfer(@PathVariable Long id) {
-        return service.getTransfer(id);
+    public TransferRecord create(@PathVariable Long assetId,
+                                 @RequestBody TransferRecord record) {
+        return service.createTransfer(assetId, record);
     }
 
     @GetMapping("/asset/{assetId}")
-    public List<TransferRecord> getTransfersForAsset(@PathVariable Long assetId) {
+    public List<TransferRecord> byAsset(@PathVariable Long assetId) {
         return service.getTransfersForAsset(assetId);
     }
-}
+
+    @GetMapping("/{id}")
+    public Tra
