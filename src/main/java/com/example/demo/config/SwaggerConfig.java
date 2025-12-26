@@ -1,21 +1,38 @@
-package com.example.demo.config;
+# ===============================
+# Server Configuration
+# ===============================
+server.port=9183
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.servers.Server;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import java.util.List;
+# ===============================
+# Spring Application
+# ===============================
+spring.application.name=digital-asset-management
 
-@Configuration
-public class SwaggerConfig {
+# ===============================
+# Database Configuration (H2 - safe default)
+# ===============================
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
 
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                // You need to change the port as per your server
-                .servers(List.of(
-                        new Server().url("https://9183.pro604cr.amypo.ai/")
-                ));
-        }
-}
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
 
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# ===============================
+# Swagger / OpenAPI (springdoc)
+# ===============================
+springdoc.api-docs.path=/v3/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.swagger-ui.operationsSorter=method
+springdoc.swagger-ui.tagsSorter=alpha
+
+# ===============================
+# Logging
+# ===============================
+logging.level.org.springframework=INFO
+logging.level.com.example.demo=DEBUG
