@@ -1,8 +1,13 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.TransferRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.*;
-import com.example.demo.entity.*;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
 public interface TransferRecordRepository extends JpaRepository<TransferRecord, Long> {
-    List<TransferRecord> findByAsset_Id(Long assetId);
+    // Custom method to get all transfers for a specific asset
+    List<TransferRecord> findByAssetId(Long assetId);
 }
