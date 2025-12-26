@@ -19,6 +19,10 @@ public class User {
     private String fullName;
     private String email;
     private String password;
-    private String role; // Added role field
+    private String role;
+    private String department;
 
+    public String getUsername() {
+        return this.email; // JWT can use email as username
+    }
 }
