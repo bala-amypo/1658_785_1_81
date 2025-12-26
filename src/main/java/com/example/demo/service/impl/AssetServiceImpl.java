@@ -34,8 +34,8 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public Asset updateStatus(Long id, String status) {
-        Asset asset = getAsset(id);
+    public Asset updateStatus(Long assetId, String status) {
+        Asset asset = getAsset(assetId);
         asset.setStatus(status);
         return assetRepository.save(asset);
     }
