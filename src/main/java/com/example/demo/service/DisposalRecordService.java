@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface DisposalRecordService {
 
-    DisposalRecord createDisposalRecord(DisposalRecord disposalRecord);
+    DisposalRecord createDisposal(Long assetId, DisposalRecord disposalRecord);
 
-    List<DisposalRecord> getAllDisposalRecords();
+    List<DisposalRecord> getAllDisposals();
 
-    DisposalRecord getDisposalRecord(Long id);
+    DisposalRecord getDisposal(Long id);
 }
