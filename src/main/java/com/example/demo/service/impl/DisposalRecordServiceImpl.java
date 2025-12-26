@@ -1,25 +1,36 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.*;
+import com.example.demo.entity.DisposalRecord;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.repository.*;
+import com.example.demo.repository.DisposalRecordRepository;
+import com.example.demo.service.DisposalRecordService;
+import org.springframework.stereotype.Service;
 
-public class DisposalRecordServiceImpl {
+import java.util.List;
 
-    DisposalRecordRepository disposalRecordRepository;
-    AssetRepository assetRepository;
-    UserRepository userRepository;
+@Service
+public class DisposalRecordServiceImpl implements DisposalRecordService {
 
-    public DisposalRecord createDisposal(Long assetId, DisposalRecord disposal) {
-        Asset asset = assetRepository.findById(assetId).get();
-        asset.setStatus("DISPOSED");
-        assetRepository.save(asset);
-        disposal.setAsset(asset);
-        return disposalRecordRepository.save(disposal);
+    private final DisposalRecordRepository disposalRecordRepository;
+
+    public DisposalRecordServiceImpl(DisposalRecordRepository disposalRecordRepository) {
+        this.disposalRecordRepository = disposalRecordRepository;
     }
 
-    public DisposalRecord getDisposal(Long id) {
+    @Override
+    public DisposalRecord createDisposalRecord(DisposalRecord disposalRecord) {
+        return disposalRecordRepository.save(disposalRecord);
+    }
+
+    @Override
+    public List<DisposalRecord> getAllDisposalRecords() {
+        return disposalRecordRepository.findAll();
+    }
+
+    @Override
+    public DisposalRecord getDisposalRecord(Long id) {
         return disposalRecordRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Disposal record not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Disposal record not found"));
     }
 }
