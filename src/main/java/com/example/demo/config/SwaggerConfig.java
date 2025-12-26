@@ -1,26 +1,3 @@
-// package com.example.demo.config;
-
-// import io.swagger.v3.oas.models.OpenAPI;
-// import io.swagger.v3.oas.models.servers.Server;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import java.util.List;
-
-// @Configuration
-// public class SwaggerConfig{
-
-//     @Bean
-//     public OpenAPI customOpenAPI() {
-//         return new OpenAPI()
-//                 // You need to change the port as per your server
-//                 .servers(List.of(
-//                         new Server().url("https://9088.32procr.amypo.ai/")
-//                 ));
-//         }
-// }
-
-
-
 package com.example.demo.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
@@ -41,17 +18,14 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
 
         return new OpenAPI()
-                // ✅ Server URL (already irundhadhe)
                 .servers(List.of(
                         new Server().url("https://9183.pro604cr.amypo.ai/")
                 ))
 
-                // ✅ GLOBAL SECURITY REQUIREMENT
                 .addSecurityItem(
                         new SecurityRequirement().addList("bearerAuth")
                 )
 
-                // ✅ SECURITY SCHEME DEFINITION
                 .components(
                         new Components().addSecuritySchemes(
                                 "bearerAuth",
