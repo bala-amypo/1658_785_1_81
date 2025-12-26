@@ -24,14 +24,14 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return Jwts.builder()
-                .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-                .compact();
-    }
+    public String generateTokenForUser(User user) {
+    Map<String, Object> claims = new HashMap<>();
+    claims.put("userId", user.getId());
+    claims.put("email", user.getEmail());
+    claims.put("role", user.getRole());
+
+    return generateToken(claims, user.getEmail());
+}
 
     public String extractUsername(String token) {
         return extractClaims(token).getSubject();
@@ -54,13 +54,5 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
-}
-public String generateTokenForUser(User user) {
-    Map<String, Object> claims = new HashMap<>();
-    claims.put("userId", user.getId());
-    claims.put("email", user.getEmail());
-    claims.put("role", user.getRole());
-
-    return generateToken(claims, user.getEmail());
 }
 
