@@ -9,7 +9,5 @@ import java.util.List;
 
 @Repository
 public interface LifecycleEventRepository extends JpaRepository<LifecycleEvent, Long> {
-
-    // Find all events for a specific asset
-    List<LifecycleEvent> findByAsset(Asset asset);
+    List<LifecycleEvent> findByAsset_Id(Long assetId);
 }

@@ -1,14 +1,25 @@
-package com.example.demo.service;
+@Service
+public class UserServiceImpl implements UserService {
 
-import com.example.demo.entity.User;
-import java.util.List;
+    private final UserRepository repo;
+    private final PasswordEncoder encoder;
 
-public interface UserService {
-    User saveUser(User user);
-    List<User> getAllUsers();
-    User getUser(Long id);
+    public UserServiceImpl(UserRepository repo, PasswordEncoder encoder) {
+        this.repo = repo;
+        this.encoder = encoder;
+    }
 
-    default User registerUser(User user) {
-        return saveUser(user);
+    public User registerUser(User user) {
+        if (repo.existsByEmail(user.getEmail()))
+            throw new ValidationException("Email already in use");
+
+        if (user.getPassword().length() < 8)
+            throw new ValidationException("Password must be at least 8 characters");
+
+        if (user.getDepartment() == null)
+            throw new ValidationException("Department is required");
+
+        user.setPassword(encoder.encode(user.getPassword()));
+        return repo.save(user);
     }
 }
