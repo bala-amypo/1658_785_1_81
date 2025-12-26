@@ -1,22 +1,48 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.*;
-import com.example.demo.repository.*;
+import com.example.demo.entity.Asset;
+import com.example.demo.entity.LifecycleEvent;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.AssetRepository;
+import com.example.demo.repository.LifecycleEventRepository;
+import com.example.demo.service.LifecycleEventService;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public class LifecycleEventServiceImpl {
+@Service
+public class LifecycleEventServiceImpl implements LifecycleEventService {
 
-    LifecycleEventRepository lifecycleEventRepository;
-    AssetRepository assetRepository;
-    UserRepository userRepository;
+    private final LifecycleEventRepository lifecycleEventRepository;
+    private final AssetRepository assetRepository;
 
-    public LifecycleEvent logEvent(Long assetId, Long userId, LifecycleEvent event) {
-        event.setAsset(assetRepository.findById(assetId).get());
-        event.setPerformedBy(userRepository.findById(userId).get());
-        return lifecycleEventRepository.save(event);
+    public LifecycleEventServiceImpl(
+            LifecycleEventRepository lifecycleEventRepository,
+            AssetRepository assetRepository) {
+        this.lifecycleEventRepository = lifecycleEventRepository;
+        this.assetRepository = assetRepository;
     }
 
-    public List<LifecycleEvent> getEventsForAsset(Long assetId) {
-        return lifecycleEventRepository.findByAsset_Id(assetId);
+    @Override
+    public LifecycleEvent createLifecycleEvent(Long assetId, LifecycleEvent lifecycleEvent) {
+
+        Asset asset = assetRepository.findById(assetId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Asset not found"));
+
+        lifecycleEvent.setAsset(asset);
+        return lifecycleEventRepository.save(lifecycleEvent);
+    }
+
+    @Override
+    public List<LifecycleEvent> getAllLifecycleEvents() {
+        return lifecycleEventRepository.findAll();
+    }
+
+    @Override
+    public LifecycleEvent getLifecycleEvent(Long id) {
+        return lifecycleEventRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Lifecycle event not found"));
     }
 }
