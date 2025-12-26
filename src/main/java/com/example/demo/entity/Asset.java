@@ -4,24 +4,21 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity @Table(name = "assets")
 public class Asset {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
     private String assetTag;
-    private String type;
-    private String brand;
-    private LocalDate purchaseDate;
     private String status;
-    @ManyToOne
-    private User owner;
     private LocalDateTime createdAt;
+    @ManyToOne @JoinColumn(name = "holder_id")
+    private User currentHolder;
 
-    public Asset() {}
-    public Asset(Long id, String tag, String type, String brand, LocalDate date, String status, User owner, LocalDateTime created) {
-        this.id = id; this.assetTag = tag; this.type = type; this.brand = brand;
-        this.purchaseDate = date; this.status = status; this.owner = owner; this.createdAt = created;
+    @PrePersist
+    protected void onCreate() {
+        if (this.status == null) this.status = "AVAILABLE";
+        if (this.createdAt == null) this.createdAt = LocalDateTime.now();
     }
-    // Standard Getters and Setters
+    // Getters, Setters, and parameterized constructor Asset(Long id, String assetTag, ...)
 }
