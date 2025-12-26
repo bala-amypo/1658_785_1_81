@@ -1,44 +1,33 @@
-package com.example.demo.entity;
-
-import jakarta.persistence.*;
-import java.time.*;
-
 @Entity
-@Table(name = "users")
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String fullName;
-
-    @Column(unique = true)
     private String email;
-
     private String department;
     private String role;
     private String password;
     private LocalDateTime createdAt;
 
-    public User() {}
+    // ✅ GETTERS & SETTERS
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public User(Long id, String fullName, String email,
-                String department, String role,
-                String password, LocalDateTime createdAt) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.department = department;
-        this.role = role;
-        this.password = password;
-        this.createdAt = createdAt;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    @PrePersist
-    public void prePersist() {
-        if (role == null) role = "USER";
-        if (createdAt == null) createdAt = LocalDateTime.now();
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    // getters & setters
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 }

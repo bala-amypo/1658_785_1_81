@@ -55,3 +55,12 @@ public class JwtUtil {
                 .getBody();
     }
 }
+public String generateTokenForUser(User user) {
+    Map<String, Object> claims = new HashMap<>();
+    claims.put("userId", user.getId());
+    claims.put("email", user.getEmail());
+    claims.put("role", user.getRole());
+
+    return generateToken(claims, user.getEmail());
+}
+

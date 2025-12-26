@@ -1,36 +1,26 @@
-package com.example.demo.entity;
-
-import jakarta.persistence.*;
-import java.time.*;
-
 @Entity
 public class TransferRecord {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
     private Asset asset;
 
-    private String fromDepartment;
-    private String toDepartment;
-    private LocalDate transferDate;
-
     @ManyToOne
     private User approvedBy;
 
-    public TransferRecord() {}
+    private LocalDate transferDate;
 
-    public TransferRecord(Long id, Asset asset,
-                          String fromDepartment, String toDepartment,
-                          LocalDate transferDate, User approvedBy) {
-        this.id = id;
-        this.asset = asset;
-        this.fromDepartment = fromDepartment;
-        this.toDepartment = toDepartment;
-        this.transferDate = transferDate;
+    public User getApprovedBy() { return approvedBy; }
+    public void setApprovedBy(User approvedBy) {
         this.approvedBy = approvedBy;
     }
 
-    // getters & setters
+    public LocalDate getTransferDate() { return transferDate; }
+
+    public void setAsset(Asset asset) {
+        this.asset = asset;
+    }
 }
