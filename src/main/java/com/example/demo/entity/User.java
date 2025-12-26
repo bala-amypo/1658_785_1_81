@@ -1,30 +1,25 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Data; // If using Lombok
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "users")
-@Data // This automatically generates getUsername()
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
     private String username;
-
     private String password;
-
-    // IF YOU ARE NOT USING LOMBOK, UNCOMMENT THIS CODE:
-    /*
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    */
+    private String email;      // Fixed: Missing getEmail()/setEmail()
+    private String fullName;   // Fixed: Missing setFullName()
+    private String department; // Fixed: Missing setDepartment()
+    private String role;       // Fixed: Missing getRole()
 }
