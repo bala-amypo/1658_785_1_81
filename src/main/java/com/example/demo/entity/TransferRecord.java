@@ -16,10 +16,8 @@ public class TransferRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long assetId; // added field for asset
+    private Long assetId;
     private String fromLocation;
     private String toLocation;
     private String transferDate;
-
-    // Lombok @Data generates get/set methods automatically
 }

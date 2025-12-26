@@ -3,20 +3,22 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.TransferRecord;
 import com.example.demo.repository.TransferRecordRepository;
 import com.example.demo.service.TransferRecordService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class TransferRecordServiceImpl implements TransferRecordService {
 
     private final TransferRecordRepository transferRecordRepository;
 
+    public TransferRecordServiceImpl(TransferRecordRepository transferRecordRepository) {
+        this.transferRecordRepository = transferRecordRepository;
+    }
+
     @Override
     public TransferRecord createTransfer(Long assetId, TransferRecord record) {
-        record.setAssetId(assetId); // Make sure TransferRecord has assetId field
+        record.setAssetId(assetId);
         return transferRecordRepository.save(record);
     }
 

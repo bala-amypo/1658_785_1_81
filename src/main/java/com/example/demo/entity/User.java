@@ -19,10 +19,8 @@ public class User {
     private String fullName;
     private String email;
     private String password;
-    private String role;
     private String department;
+    private String role;
 
-    public String getUsername() {
-        return this.email; // JWT can use email as username
-    }
+    // Lombok @Data generates all getters and setters
 }
