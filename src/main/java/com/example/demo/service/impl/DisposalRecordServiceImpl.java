@@ -17,48 +17,49 @@ import java.util.List;
 @Service
 public class DisposalRecordServiceImpl implements DisposalRecordService {
 
-    private final DisposalRecordRepository repo;
-    private final AssetRepository assetRepo;
-    private final UserRepository userRepo;
+    private final DisposalRecordRepository disposalRecordRepository;
+    private final AssetRepository assetRepository;
+    private final UserRepository userRepository;
 
-    public DisposalRecordServiceImpl(DisposalRecordRepository repo,
-                                     AssetRepository assetRepo,
-                                     UserRepository userRepo) {
-        this.repo = repo;
-        this.assetRepo = assetRepo;
-        this.userRepo = userRepo;
+    public DisposalRecordServiceImpl(DisposalRecordRepository disposalRecordRepository,
+                                     AssetRepository assetRepository,
+                                     UserRepository userRepository) {
+        this.disposalRecordRepository = disposalRecordRepository;
+        this.assetRepository = assetRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public DisposalRecord createDisposal(Long assetId, DisposalRecord record) {
-        Asset asset = assetRepo.findById(assetId)
+    public DisposalRecord createDisposal(Long assetId, DisposalRecord disposal) {
+        Asset asset = assetRepository.findById(assetId)
                 .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
 
-        User admin = userRepo.findById(record.getApprovedBy().getId())
+        User approver = userRepository.findById(disposal.getApprovedBy().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        if (!"ADMIN".equals(admin.getRole()))
+        if (!"ADMIN".equals(approver.getRole())) {
             throw new ValidationException("Approver must be ADMIN");
-
-        if (record.getDisposalDate().isAfter(LocalDate.now()))
+        }
+        if (disposal.getDisposalDate().isAfter(LocalDate.now())) {
             throw new ValidationException("Disposal date cannot be in the future");
+        }
 
         asset.setStatus("DISPOSED");
-        assetRepo.save(asset);
+        assetRepository.save(asset);
 
-        record.setAsset(asset);
-        record.setApprovedBy(admin);
-        return repo.save(record);
+        disposal.setAsset(asset);
+        disposal.setApprovedBy(approver);
+        return disposalRecordRepository.save(disposal);
     }
 
     @Override
     public DisposalRecord getDisposal(Long id) {
-        return repo.findById(id)
+        return disposalRecordRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Disposal record not found"));
     }
 
     @Override
     public List<DisposalRecord> getAllDisposals() {
-        return repo.findAll();
+        return disposalRecordRepository.findAll();
     }
 }

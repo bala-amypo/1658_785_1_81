@@ -35,7 +35,9 @@ public class AssetServiceImpl implements AssetService {
 
     @Override
     public Asset updateStatus(Long assetId, String status) {
-        Asset asset = getAsset(assetId);
+        Asset asset = assetRepository.findById(assetId)
+                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
+
         asset.setStatus(status);
         return assetRepository.save(asset);
     }
