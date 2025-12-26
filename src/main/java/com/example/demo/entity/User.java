@@ -1,25 +1,26 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String username;
+    private String name;
+    @Column(unique = true)
+    private String email;
+    private String department;
+    private String role;
     private String password;
-    private String email;      // Fixed: Missing getEmail()/setEmail()
-    private String fullName;   // Fixed: Missing setFullName()
-    private String department; // Fixed: Missing setDepartment()
-    private String role;       // Fixed: Missing getRole()
+    @OneToMany(mappedBy = "owner")
+    private List<Asset> assets;
+
+    public User() {}
+    public User(Long id, String name, String email, String department, String role, String password, List<Asset> assets) {
+        this.id = id; this.name = name; this.email = email; this.department = department; 
+        this.role = role; this.password = password; this.assets = assets;
+    }
+    // Standard Getters and Setters
 }

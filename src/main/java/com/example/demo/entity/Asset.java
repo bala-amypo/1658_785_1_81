@@ -1,50 +1,27 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Asset {
-
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(unique = true)
     private String assetTag;
-    private String assetType;
-    private String model;
+    private String type;
+    private String brand;
     private LocalDate purchaseDate;
     private String status;
-
     @ManyToOne
-    private User currentHolder;
-
+    private User owner;
     private LocalDateTime createdAt;
 
     public Asset() {}
-
-    public Asset(Long id, String assetTag, String assetType, String model,
-                 LocalDate purchaseDate, String status,
-                 User currentHolder, LocalDateTime createdAt) {
-        this.id = id;
-        this.assetTag = assetTag;
-        this.assetType = assetType;
-        this.model = model;
-        this.purchaseDate = purchaseDate;
-        this.status = status;
-        this.currentHolder = currentHolder;
-        this.createdAt = createdAt;
+    public Asset(Long id, String tag, String type, String brand, LocalDate date, String status, User owner, LocalDateTime created) {
+        this.id = id; this.assetTag = tag; this.type = type; this.brand = brand;
+        this.purchaseDate = date; this.status = status; this.owner = owner; this.createdAt = created;
     }
-
-    @PrePersist
-    public void prePersist() {
-        if (status == null) status = "AVAILABLE";
-        createdAt = LocalDateTime.now();
-    }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-    public String getAssetTag() { return assetTag; }
-    public User getCurrentHolder() { return currentHolder; }
+    // Standard Getters and Setters
 }
