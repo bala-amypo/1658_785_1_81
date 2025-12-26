@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-public class RegisterRequestDTO {
+public class RegisterRequest {
 
     private String name;
     private String email;
@@ -8,10 +8,10 @@ public class RegisterRequestDTO {
     private String role;
     private String department;
 
-    public RegisterRequestDTO() {
+    public RegisterRequest() {
     }
 
-    public RegisterRequestDTO(String name, String email,
+    public RegisterRequest(String name, String email,
                               String password, String role,
                               String department) {
         this.name = name;

@@ -1,13 +1,13 @@
 package com.example.demo.dto;
 
-public class AssetStatusUpdateDTO {
+public class AssetStatusUpdateRequest {
 
     private String status;
 
-    public AssetStatusUpdateDTO() {
+    public AssetStatusUpdateRequest() {
     }
 
-    public AssetStatusUpdateDTO(String status) {
+    public AssetStatusUpdateRequest(String status) {
         this.status = status;
     }
 
