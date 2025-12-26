@@ -1,9 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.TransferRecord;
-import com.example.demo.entity.User;
 import com.example.demo.repository.TransferRecordRepository;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.service.TransferRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,13 +13,11 @@ import java.util.List;
 public class TransferRecordServiceImpl implements TransferRecordService {
 
     private final TransferRecordRepository transferRecordRepository;
-    private final UserRepository userRepository;
 
     @Override
-    public TransferRecord createTransfer(Long userId, TransferRecord transferRecord) {
-        User user = userRepository.findById(userId).orElseThrow();
-        transferRecord.setUser(user);
-        return transferRecordRepository.save(transferRecord);
+    public TransferRecord createTransfer(Long assetId, TransferRecord record) {
+        // You can link assetId to record here if needed
+        return transferRecordRepository.save(record);
     }
 
     @Override
@@ -31,6 +27,11 @@ public class TransferRecordServiceImpl implements TransferRecordService {
 
     @Override
     public TransferRecord getTransfer(Long id) {
-        return transferRecordRepository.findById(id).orElseThrow();
+        return transferRecordRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<TransferRecord> getTransfersForAsset(Long assetId) {
+        return transferRecordRepository.findByAssetId(assetId);
     }
 }
